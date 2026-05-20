@@ -26,6 +26,7 @@ export const featuredServices: ServiceItem[] = [
 
 export const featuredDestinations: DestinationItem[] = [
   {
+    title: "Wisata Gili Trawangan",
     name: "Gili Trawangan",
     slug: "gili-trawangan",
     category: "Island Escape",
@@ -33,6 +34,7 @@ export const featuredDestinations: DestinationItem[] = [
     highlight: "Trip paling dicari untuk pasangan dan first-timer Lombok.",
   },
   {
+    title: "Wisata Kuta Mandalika",
     name: "Mandalika",
     slug: "kuta-mandalika",
     category: "Beach & Lifestyle",
@@ -40,6 +42,7 @@ export const featuredDestinations: DestinationItem[] = [
     highlight: "Cocok untuk short escape, family trip, dan konten visual premium.",
   },
   {
+    title: "Wisata Senggigi",
     name: "Senggigi",
     slug: "senggigi",
     category: "Classic Coastal",
@@ -47,6 +50,7 @@ export const featuredDestinations: DestinationItem[] = [
     highlight: "Ideal untuk wisatawan domestik yang mencari area strategis.",
   },
   {
+    title: "Wisata Pink Beach",
     name: "Pink Beach",
     slug: "pink-beach",
     category: "Hidden Gem",
