@@ -1125,7 +1125,7 @@ function fallbackServices(): ServiceItem[] {
         : item.href === "/sewa-mobil-lombok"
           ? "transport"
           : "tour",
-    content: textToPortableBlocks(item.description),
+    content: textToPortableBlocks(item.summary),
     heroNote: "",
     ctaMessage: "",
     gallery: [],
