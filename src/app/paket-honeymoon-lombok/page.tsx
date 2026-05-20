@@ -42,7 +42,7 @@ export default async function PaketHoneymoonPage() {
           <div className="space-y-4">
             <p>{service.heroNote || "Pilih suasana honeymoon yang lebih romantis dengan alur perjalanan yang nyaman dan mudah dikonsultasikan."}</p>
             <CtaLink href={getWhatsappLink(service.ctaMessage || "Halo, saya ingin paket honeymoon Lombok.")}>
-              Konsultasi Honeymoon
+              Rencanakan Honeymoon Anda
             </CtaLink>
           </div>
         }
