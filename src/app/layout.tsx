@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import { Suspense, type Metadata } from "react";
 import Script from "next/script";
 import "./globals.css";
 
@@ -44,7 +44,9 @@ function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', '${googleAnalyticsId}', { send_page_view: false });`}
             </Script>
-            <GoogleAnalyticsRouteTracker measurementId={googleAnalyticsId} />
+            <Suspense fallback={null}>
+              <GoogleAnalyticsRouteTracker measurementId={googleAnalyticsId} />
+            </Suspense>
           </>
         ) : null}
         <div className="relative flex min-h-screen flex-col overflow-hidden">
