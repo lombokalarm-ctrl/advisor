@@ -4,10 +4,12 @@ export const siteConfig = {
   description:
     "Layanan travel Lombok untuk paket wisata, honeymoon, sewa mobil, dan panduan destinasi yang mudah dikonsultasikan.",
   domain: "https://lombokadvisor.com",
+  email: "hello@lombokadvisor.com",
   whatsappNumber: "6287766116599",
   whatsappMessage:
     "Halo LombokAdvisor, saya ingin konsultasi paket wisata atau sewa mobil di Lombok.",
   locale: "id_ID",
+  areaServed: ["Lombok", "Nusa Tenggara Barat", "Indonesia"],
   navItems: [
     { label: "Paket Wisata", href: "/paket-wisata-lombok" },
     { label: "Honeymoon", href: "/paket-honeymoon-lombok" },

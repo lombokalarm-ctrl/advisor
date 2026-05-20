@@ -2,6 +2,9 @@ import { siteConfig } from "@/data/config/site";
 import type { ArticleItem, DestinationItem, FaqItem, ServiceItem, TestimonialItem } from "@/types/content";
 
 type SchemaNode = Record<string, unknown>;
+const organizationId = `${siteConfig.domain}/#organization`;
+const websiteId = `${siteConfig.domain}/#website`;
+const contactPointId = `${siteConfig.domain}/#contact`;
 
 function absoluteUrl(path: string) {
   return new URL(path, siteConfig.domain).toString();
@@ -50,7 +53,54 @@ function buildBreadcrumbSchema(items: Array<{ name: string; path: string }>) {
   };
 }
 
-export function buildHomePageSchemas(testimonials: TestimonialItem[] = []) {
+function buildContactPointSchema() {
+  return {
+    "@type": "ContactPoint",
+    "@id": contactPointId,
+    contactType: "customer support",
+    url: absoluteUrl("/"),
+    telephone: `+${siteConfig.whatsappNumber}`,
+    email: siteConfig.email,
+    areaServed: siteConfig.areaServed,
+    availableLanguage: ["id", "en"],
+  };
+}
+
+function buildOrganizationSchema() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "@id": organizationId,
+    name: siteConfig.name,
+    url: siteConfig.domain,
+    email: siteConfig.email,
+    telephone: `+${siteConfig.whatsappNumber}`,
+    description: siteConfig.description,
+    areaServed: siteConfig.areaServed,
+    knowsAbout: ["Paket wisata Lombok", "Paket honeymoon Lombok", "Sewa mobil Lombok", "Destinasi wisata Lombok"],
+    sameAs: [absoluteUrl("/"), siteConfig.domain],
+    contactPoint: [buildContactPointSchema()],
+  };
+}
+
+function buildTravelAgencySchema(testimonials: TestimonialItem[] = []) {
+  const travelAgency: SchemaNode = {
+    "@context": "https://schema.org",
+    "@type": "TravelAgency",
+    "@id": `${siteConfig.domain}/#travel-agency`,
+    name: siteConfig.name,
+    url: siteConfig.domain,
+    description: siteConfig.description,
+    telephone: `+${siteConfig.whatsappNumber}`,
+    email: siteConfig.email,
+    areaServed: siteConfig.areaServed,
+    knowsAbout: ["Paket wisata Lombok", "Paket honeymoon Lombok", "Sewa mobil Lombok", "Destinasi wisata Lombok"],
+    contactPoint: [buildContactPointSchema()],
+    parentOrganization: {
+      "@id": organizationId,
+    },
+  };
+
   const review = testimonials.map((item) => ({
     "@type": "Review",
     reviewRating: {
@@ -66,36 +116,28 @@ export function buildHomePageSchemas(testimonials: TestimonialItem[] = []) {
     name: item.tripType,
   }));
 
-  const travelAgency: SchemaNode = {
-    "@context": "https://schema.org",
-    "@type": "TravelAgency",
-    name: siteConfig.name,
-    url: siteConfig.domain,
-    description: siteConfig.description,
-    telephone: `+${siteConfig.whatsappNumber}`,
-    areaServed: ["Lombok", "Nusa Tenggara Barat", "Indonesia"],
-    knowsAbout: ["Paket wisata Lombok", "Paket honeymoon Lombok", "Sewa mobil Lombok", "Destinasi wisata Lombok"],
-    contactPoint: {
-      "@type": "ContactPoint",
-      contactType: "customer support",
-      telephone: `+${siteConfig.whatsappNumber}`,
-      availableLanguage: ["id", "en"],
-    },
-  };
-
   if (review.length) {
     travelAgency.review = review;
   }
 
+  return travelAgency;
+}
+
+export function buildHomePageSchemas(testimonials: TestimonialItem[] = []) {
   return [
     {
       "@context": "https://schema.org",
       "@type": "WebSite",
+      "@id": websiteId,
       name: siteConfig.name,
       url: siteConfig.domain,
       inLanguage: "id-ID",
+      publisher: {
+        "@id": organizationId,
+      },
     },
-    travelAgency,
+    buildOrganizationSchema(),
+    buildTravelAgencySchema(testimonials),
   ];
 }
 
@@ -107,12 +149,9 @@ export function buildServicePageSchemas(service: ServiceItem, path: string) {
     serviceType: service.category || service.title,
     description: service.metaDescription || service.summary,
     url: absoluteUrl(path),
-    areaServed: ["Lombok", "Nusa Tenggara Barat", "Indonesia"],
+    areaServed: siteConfig.areaServed,
     provider: {
-      "@type": "TravelAgency",
-      name: siteConfig.name,
-      url: siteConfig.domain,
-      telephone: `+${siteConfig.whatsappNumber}`,
+      "@id": organizationId,
     },
   };
 
@@ -128,6 +167,7 @@ export function buildServicePageSchemas(service: ServiceItem, path: string) {
       { name: service.title, path },
     ]),
     buildFaqSchema(service.faqs),
+    buildOrganizationSchema(),
   ].filter(Boolean);
 }
 
@@ -150,10 +190,10 @@ export function buildDestinationPageSchemas(destination: DestinationItem, path: 
     destinationSchema,
     buildBreadcrumbSchema([
       { name: "Beranda", path: "/" },
-      { name: "Destinasi", path: "/wisata/gili-trawangan" },
       { name: destination.title || destination.name, path },
     ]),
     buildFaqSchema(destination.faqs),
+    buildOrganizationSchema(),
   ].filter(Boolean);
 }
 
@@ -167,13 +207,10 @@ export function buildArticlePageSchemas(article: ArticleItem, path: string) {
     mainEntityOfPage: absoluteUrl(path),
     articleSection: article.category,
     author: {
-      "@type": "Organization",
-      name: siteConfig.name,
+      "@id": organizationId,
     },
     publisher: {
-      "@type": "Organization",
-      name: siteConfig.name,
-      url: siteConfig.domain,
+      "@id": organizationId,
     },
   };
 
@@ -190,9 +227,9 @@ export function buildArticlePageSchemas(article: ArticleItem, path: string) {
     articleSchema,
     buildBreadcrumbSchema([
       { name: "Beranda", path: "/" },
-      { name: "Blog", path: "/blog/tempat-wisata-di-lombok" },
       { name: article.title, path },
     ]),
     buildFaqSchema(article.faqs),
+    buildOrganizationSchema(),
   ].filter(Boolean);
 }

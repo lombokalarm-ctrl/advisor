@@ -1,9 +1,9 @@
 import type { MetadataRoute } from "next";
 
 import { siteConfig } from "@/data/config/site";
-import { articlePages, destinationPages, servicePages } from "@/data/seed/routes";
+import { getArticleSlugs, getDestinationSlugs, getPackageSlugs } from "@/lib/cms/content";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticRoutes = [
     "",
     "/paket-wisata-lombok",
@@ -11,9 +11,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/sewa-mobil-lombok",
   ];
 
-  const serviceRoutes = Object.keys(servicePages).map((slug) => `/${slug}`);
-  const destinationRoutes = Object.keys(destinationPages).map((slug) => `/wisata/${slug}`);
-  const articleRoutes = Object.keys(articlePages).map((slug) => `/blog/${slug}`);
+  const [packageSlugs, destinationSlugs, articleSlugs] = await Promise.all([
+    getPackageSlugs(),
+    getDestinationSlugs(),
+    getArticleSlugs(),
+  ]);
+
+  const serviceRoutes = packageSlugs.map((slug) => `/${slug}`);
+  const destinationRoutes = destinationSlugs.map((slug) => `/wisata/${slug}`);
+  const articleRoutes = articleSlugs.map((slug) => `/blog/${slug}`);
 
   return [...new Set([...staticRoutes, ...serviceRoutes, ...destinationRoutes, ...articleRoutes])].map(
     (path) => ({
