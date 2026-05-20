@@ -2620,13 +2620,17 @@ function fallbackPackageBySlug(slug: string): ServiceItem | null {
   };
 }
 
-async function fetchSanityData<T>(query: string, params?: Record<string, string>) {
+async function fetchSanityData<T>(query: string, params?: Record<string, unknown>) {
   if (!sanityClient) {
     return null;
   }
 
   try {
-    return await sanityClient.fetch<T>(query, params);
+    if (params) {
+      return await sanityClient.fetch<T>(query, params);
+    }
+
+    return await sanityClient.fetch<T>(query);
   } catch (error) {
     console.error("Sanity fetch gagal, fallback lokal akan digunakan.", error);
     return null;
