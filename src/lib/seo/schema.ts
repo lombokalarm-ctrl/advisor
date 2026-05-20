@@ -6,6 +6,10 @@ const organizationId = `${siteConfig.domain}/#organization`;
 const websiteId = `${siteConfig.domain}/#website`;
 const contactPointId = `${siteConfig.domain}/#contact`;
 
+function compactSchemaNodes(nodes: Array<SchemaNode | null>): SchemaNode[] {
+  return nodes.filter((node): node is SchemaNode => node !== null);
+}
+
 function absoluteUrl(path: string) {
   return new URL(path, siteConfig.domain).toString();
 }
@@ -160,7 +164,7 @@ export function buildServicePageSchemas(service: ServiceItem, path: string) {
     serviceSchema.image = images;
   }
 
-  return [
+  return compactSchemaNodes([
     serviceSchema,
     buildBreadcrumbSchema([
       { name: "Beranda", path: "/" },
@@ -168,7 +172,7 @@ export function buildServicePageSchemas(service: ServiceItem, path: string) {
     ]),
     buildFaqSchema(service.faqs),
     buildOrganizationSchema(),
-  ].filter(Boolean);
+  ]);
 }
 
 export function buildDestinationPageSchemas(destination: DestinationItem, path: string) {
@@ -186,7 +190,7 @@ export function buildDestinationPageSchemas(destination: DestinationItem, path: 
     destinationSchema.image = images;
   }
 
-  return [
+  return compactSchemaNodes([
     destinationSchema,
     buildBreadcrumbSchema([
       { name: "Beranda", path: "/" },
@@ -194,7 +198,7 @@ export function buildDestinationPageSchemas(destination: DestinationItem, path: 
     ]),
     buildFaqSchema(destination.faqs),
     buildOrganizationSchema(),
-  ].filter(Boolean);
+  ]);
 }
 
 export function buildArticlePageSchemas(article: ArticleItem, path: string) {
@@ -223,7 +227,7 @@ export function buildArticlePageSchemas(article: ArticleItem, path: string) {
     articleSchema.image = images;
   }
 
-  return [
+  return compactSchemaNodes([
     articleSchema,
     buildBreadcrumbSchema([
       { name: "Beranda", path: "/" },
@@ -231,5 +235,5 @@ export function buildArticlePageSchemas(article: ArticleItem, path: string) {
     ]),
     buildFaqSchema(article.faqs),
     buildOrganizationSchema(),
-  ].filter(Boolean);
+  ]);
 }
