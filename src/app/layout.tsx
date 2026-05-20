@@ -1,4 +1,5 @@
-import { Suspense, type Metadata } from "react";
+import { Suspense } from "react";
+import type { Metadata } from "next";
 import Script from "next/script";
 import "./globals.css";
 
