@@ -2,10 +2,12 @@ import type { Metadata } from "next";
 
 import { DetailContentSections } from "@/components/cms/detail-content-sections";
 import { PageHero } from "@/components/sections/page-hero";
+import { JsonLd } from "@/components/seo/json-ld";
 import { CtaLink } from "@/components/ui/cta-link";
 import { getWhatsappLink } from "@/data/config/site";
 import { getPackageBySlug } from "@/lib/cms/content";
 import { buildMetadata } from "@/lib/seo/metadata";
+import { buildServicePageSchemas } from "@/lib/seo/schema";
 
 export async function generateMetadata(): Promise<Metadata> {
   const service = await getPackageBySlug("sewa-mobil-lombok");
@@ -27,8 +29,11 @@ export default async function SewaMobilPage() {
     return null;
   }
 
+  const schemas = buildServicePageSchemas(service, "/sewa-mobil-lombok");
+
   return (
     <>
+      <JsonLd id="sewa-mobil-json-ld" data={schemas} />
       <PageHero
         eyebrow="Sewa Mobil"
         title={service.title}

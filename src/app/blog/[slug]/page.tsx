@@ -4,10 +4,12 @@ import { notFound } from "next/navigation";
 
 import { DetailContentSections } from "@/components/cms/detail-content-sections";
 import { PageHero } from "@/components/sections/page-hero";
+import { JsonLd } from "@/components/seo/json-ld";
 import { CtaLink } from "@/components/ui/cta-link";
 import { getWhatsappLink } from "@/data/config/site";
 import { getArticleBySlug, getArticleSlugs } from "@/lib/cms/content";
 import { buildMetadata } from "@/lib/seo/metadata";
+import { buildArticlePageSchemas } from "@/lib/seo/schema";
 
 type ArticlePageProps = {
   params: Promise<{ slug: string }>;
@@ -51,8 +53,11 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
     notFound();
   }
 
+  const schemas = buildArticlePageSchemas(article, `/blog/${slug}`);
+
   return (
     <>
+      <JsonLd id={`article-json-ld-${slug}`} data={schemas} />
       <PageHero
         eyebrow={article.category}
         title={article.title}

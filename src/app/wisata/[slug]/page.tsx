@@ -3,10 +3,12 @@ import { notFound } from "next/navigation";
 
 import { DetailContentSections } from "@/components/cms/detail-content-sections";
 import { PageHero } from "@/components/sections/page-hero";
+import { JsonLd } from "@/components/seo/json-ld";
 import { CtaLink } from "@/components/ui/cta-link";
 import { getWhatsappLink } from "@/data/config/site";
 import { getDestinationBySlug, getDestinationSlugs } from "@/lib/cms/content";
 import { buildMetadata } from "@/lib/seo/metadata";
+import { buildDestinationPageSchemas } from "@/lib/seo/schema";
 
 type DestinationPageProps = {
   params: Promise<{ slug: string }>;
@@ -43,8 +45,11 @@ export default async function DestinationPage({ params }: DestinationPageProps) 
     notFound();
   }
 
+  const schemas = buildDestinationPageSchemas(destination, `/wisata/${slug}`);
+
   return (
     <>
+      <JsonLd id={`destination-json-ld-${slug}`} data={schemas} />
       <PageHero
         eyebrow={destination.category}
         title={destination.title || destination.name}

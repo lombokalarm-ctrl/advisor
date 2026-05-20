@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import "./globals.css";
 
+import { GoogleAnalyticsRouteTracker } from "@/components/analytics/google-analytics-route-tracker";
 import { MobileStickyCta } from "@/components/layout/mobile-sticky-cta";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
@@ -41,8 +42,9 @@ export default function RootLayout({
               {`window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
-gtag('config', '${googleAnalyticsId}');`}
+gtag('config', '${googleAnalyticsId}', { send_page_view: false });`}
             </Script>
+            <GoogleAnalyticsRouteTracker measurementId={googleAnalyticsId} />
           </>
         ) : null}
         <div className="relative flex min-h-screen flex-col overflow-hidden">
