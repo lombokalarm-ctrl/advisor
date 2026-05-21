@@ -172,6 +172,20 @@ export default async function PaketHoneymoonPage() {
         faqs={service.faqs}
         gallery={service.gallery}
         mainImage={service.mainImage}
+        galleryProps={{
+          eyebrow: "Romantic moments",
+          title: "Dokumentasi visual untuk menangkap suasana honeymoon yang lebih hangat",
+          description:
+            "Bagian ini membantu pasangan membayangkan ritme perjalanan, suasana menginap, dan momen-momen yang terasa lebih intim selama di Lombok.",
+          variant: "romantic",
+        }}
+        faqProps={{
+          eyebrow: "FAQ Honeymoon",
+          title: "Pertanyaan yang sering muncul sebelum pasangan memilih paket",
+          description:
+            "Jawaban singkat berikut membantu Anda memahami durasi, fleksibilitas itinerary, dan hal-hal yang paling sering ditanyakan sebelum menentukan perjalanan.",
+          variant: "romantic",
+        }}
       />
       </div>
     </>

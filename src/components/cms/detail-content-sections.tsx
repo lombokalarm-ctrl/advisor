@@ -10,6 +10,18 @@ type DetailContentSectionsProps = {
   gallery?: GalleryImage[];
   faqs?: FaqItem[];
   fallbackContent: string;
+  galleryProps?: {
+    eyebrow?: string;
+    title?: string;
+    description?: string;
+    variant?: "default" | "romantic";
+  };
+  faqProps?: {
+    eyebrow?: string;
+    title?: string;
+    description?: string;
+    variant?: "default" | "romantic";
+  };
 };
 
 export function DetailContentSections({
@@ -18,6 +30,8 @@ export function DetailContentSections({
   gallery,
   faqs,
   fallbackContent,
+  galleryProps,
+  faqProps,
 }: DetailContentSectionsProps) {
   const contentValue =
     content?.length
@@ -55,8 +69,8 @@ export function DetailContentSections({
           <PortableRichText value={contentValue} />
         </div>
       </section>
-      <GalleryGrid items={gallery} />
-      <FaqList items={faqs} />
+      <GalleryGrid items={gallery} {...galleryProps} />
+      <FaqList items={faqs} {...faqProps} />
     </>
   );
 }
