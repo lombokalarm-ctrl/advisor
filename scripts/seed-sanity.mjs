@@ -2190,7 +2190,7 @@ const packageDocs = [
     _type: "tourPackage",
     title: "Paket Wisata Lombok",
     slug: { _type: "slug", current: "paket-wisata-lombok" },
-    category: "tour-package",
+    category: "tour",
     priceLabel: "Mulai Rp1 juta / orang",
     duration: "One Day Tour hingga 4D3N",
     summary:
