@@ -82,8 +82,44 @@ function createTextBlock(text, { key, style = "normal", listItem, level } = {}) 
   };
 }
 
+function createLinkedTextBlock(segments, { key, style = "normal", listItem, level } = {}) {
+  const markDefs = [];
+  const children = segments.map((segment, index) => {
+    const markKey = segment.href ? `${key}-mark-${index}` : undefined;
+
+    if (segment.href && markKey) {
+      markDefs.push({
+        _key: markKey,
+        _type: "link",
+        href: segment.href,
+      });
+    }
+
+    return {
+      _key: `${key}-span-${index}`,
+      _type: "span",
+      marks: markKey ? [markKey] : [],
+      text: segment.text,
+    };
+  });
+
+  return {
+    _key: key,
+    _type: "block",
+    style,
+    ...(listItem ? { listItem } : {}),
+    ...(level ? { level } : {}),
+    markDefs,
+    children,
+  };
+}
+
 function normalBlock(text, key) {
   return createTextBlock(text, { key, style: "normal" });
+}
+
+function linkedNormalBlock(segments, key) {
+  return createLinkedTextBlock(segments, { key, style: "normal" });
 }
 
 function headingBlock(text, style, key) {
@@ -555,6 +591,20 @@ function buildPaketWisataLombokContent(detailImageId) {
       "Cukup kirim tanggal perjalanan, jumlah peserta, kota asal, dan gambaran trip yang diinginkan melalui WhatsApp. Tim LombokAdvisor akan membantu menyusun rekomendasi paket wisata Lombok yang paling sesuai, termasuk pilihan durasi, destinasi, dan fasilitas.",
       "booking-body",
     ),
+    linkedNormalBlock(
+      [
+        { text: "Jika Anda ingin melihat opsi yang lebih spesifik, baca juga " },
+        { text: "paket wisata Lombok 3 hari 2 malam", href: "/blog/paket-wisata-lombok-3-hari-2-malam" },
+        { text: ", contoh " },
+        { text: "itinerary Lombok 3 hari", href: "/blog/itinerary-lombok-3-hari" },
+        { text: ", inspirasi " },
+        { text: "trip ke Gili Trawangan", href: "/wisata/gili-trawangan" },
+        { text: ", atau opsi " },
+        { text: "transport selama liburan di Lombok", href: "/sewa-mobil-lombok" },
+        { text: " jika Anda ingin ritme perjalanan yang lebih fleksibel." },
+      ],
+      "paket-internal-links",
+    ),
     quoteBlock(
       "Jika Anda mencari paket wisata Lombok yang fleksibel, nyaman, dan mudah dikonsultasikan, tim LombokAdvisor siap membantu dari tahap perencanaan sampai trip berjalan.",
       "paket-closing-quote",
@@ -634,6 +684,16 @@ function buildPaketHoneymoonLombokContent(detailImageId) {
       "Hari kedua biasanya menjadi hari yang paling dinanti karena bisa diisi dengan trip ke Gili, waktu santai di tepi pantai, atau perjalanan laut yang memberi pengalaman berbeda untuk berdua. Hari ketiga dapat dibuat lebih ringan, misalnya dengan sarapan santai, singgah ke tempat oleh-oleh, lalu lanjut kembali ke bandara.",
       "honeymoon-flow-body-2",
     ),
+    linkedNormalBlock(
+      [
+        { text: "Banyak pasangan juga menambahkan " },
+        { text: "honeymoon Gili Trawangan", href: "/blog/honeymoon-gili-trawangan" },
+        { text: " ke itinerary agar suasana pulau terasa lebih kuat. Jika Anda ingin mengenal areanya lebih dulu, lihat panduan " },
+        { text: "wisata Gili Trawangan", href: "/wisata/gili-trawangan" },
+        { text: " sebelum menentukan susunan trip yang paling pas untuk berdua." },
+      ],
+      "honeymoon-internal-links",
+    ),
     headingBlock("Siapa yang cocok memilih paket ini", "h2", "honeymoon-fit"),
     normalBlock(
       "Paket honeymoon Lombok cocok untuk pasangan baru menikah, pasangan yang merayakan anniversary, maupun pasangan yang ingin quality time berdua tanpa harus menyusun perjalanan dari nol. Jika Anda ingin perjalanan yang terasa lebih privat, ritmenya santai, dan suasananya nyaman dari awal sampai akhir, paket honeymoon biasanya menjadi pilihan yang paling pas.",
@@ -701,6 +761,20 @@ function buildSewaMobilLombokContent(detailImageId) {
     normalBlock(
       "Harga sewa mobil Lombok mulai dari kebutuhan harian dan dapat menyesuaikan dengan jenis armada, durasi penggunaan, area penjemputan, serta apakah layanan dipakai untuk transfer singkat, city tour, atau perjalanan beberapa hari.",
       "car-price-body",
+    ),
+    linkedNormalBlock(
+      [
+        { text: "Untuk membandingkan kebutuhan dengan lebih cepat, Anda bisa lihat panduan " },
+        { text: "harga sewa mobil Lombok", href: "/blog/harga-sewa-mobil-lombok" },
+        { text: ", kebutuhan " },
+        { text: "sewa mobil bandara Lombok", href: "/blog/sewa-mobil-bandara-lombok" },
+        { text: ", atau opsi " },
+        { text: "rental Hiace Lombok", href: "/blog/rental-hiace-lombok" },
+        { text: " untuk rombongan. Jika trip Anda sekalian butuh itinerary, halaman " },
+        { text: "paket wisata Lombok", href: "/paket-wisata-lombok" },
+        { text: " juga bisa jadi acuan." },
+      ],
+      "car-internal-links",
     ),
     headingBlock("Cara booking mobil", "h2", "car-booking"),
     normalBlock(
@@ -954,6 +1028,18 @@ function buildHargaSewaMobilLombokContent(detailImageId) {
     bulletBlock("Jelaskan apakah kendaraan dipakai untuk transfer, city tour, atau perjalanan beberapa hari.", "carprice-tip-2"),
     bulletBlock("Sesuaikan armada dengan bagasi dan kenyamanan perjalanan, bukan hanya jumlah kursi.", "carprice-tip-3"),
     bulletBlock("Booking lebih awal saat high season agar pilihan armada masih lengkap.", "carprice-tip-4"),
+    linkedNormalBlock(
+      [
+        { text: "Jika Anda ingin langsung membandingkan layanan, buka halaman " },
+        { text: "sewa mobil Lombok", href: "/sewa-mobil-lombok" },
+        { text: ", cek kebutuhan " },
+        { text: "jemput bandara Lombok", href: "/blog/sewa-mobil-bandara-lombok" },
+        { text: ", atau lihat opsi " },
+        { text: "rental Hiace untuk rombongan", href: "/blog/rental-hiace-lombok" },
+        { text: " agar pilihan armada lebih cepat mengerucut." },
+      ],
+      "carprice-internal-links",
+    ),
   ];
 
   if (detailImageId) {
@@ -1511,6 +1597,18 @@ function buildPaketWisataLombok3Hari2MalamContent(detailImageId) {
     bulletBlock("Hari pertama untuk area yang dekat dari bandara dan sunset.", "package-3d2n-structure-1"),
     bulletBlock("Hari kedua untuk highlight utama seperti Gili atau kombinasi pantai selatan.", "package-3d2n-structure-2"),
     bulletBlock("Hari ketiga untuk penutup yang lebih ringan sebelum kembali.", "package-3d2n-structure-3"),
+    linkedNormalBlock(
+      [
+        { text: "Untuk melihat pilihan durasi yang lebih luas, Anda bisa mulai dari halaman " },
+        { text: "paket wisata Lombok", href: "/paket-wisata-lombok" },
+        { text: ". Jika ingin membandingkan susunan rute, cek juga " },
+        { text: "itinerary Lombok 3 hari", href: "/blog/itinerary-lombok-3-hari" },
+        { text: " dan ide " },
+        { text: "wisata Gili Trawangan", href: "/wisata/gili-trawangan" },
+        { text: " yang sering menjadi highlight hari kedua." },
+      ],
+      "package-3d2n-internal-links",
+    ),
   ];
 
   if (detailImageId) {
@@ -1626,6 +1724,16 @@ function buildHoneymoonGiliTrawanganContent(detailImageId) {
     bulletBlock("Pertimbangkan menginap agar pengalaman lebih santai.", "honeymoon-gili-tip-1"),
     bulletBlock("Atur transport darat dan laut sejak awal agar perjalanan lebih nyaman.", "honeymoon-gili-tip-2"),
     bulletBlock("Pilih ritme itinerary yang fokus pada quality time, bukan terlalu banyak pindah spot.", "honeymoon-gili-tip-3"),
+    linkedNormalBlock(
+      [
+        { text: "Artikel ini paling ideal dibaca bersama halaman " },
+        { text: "paket honeymoon Lombok", href: "/paket-honeymoon-lombok" },
+        { text: " agar Anda bisa melihat gambaran trip berdua secara utuh. Jika ingin mengenal pulaunya lebih dulu, lihat juga " },
+        { text: "wisata Gili Trawangan", href: "/wisata/gili-trawangan" },
+        { text: " untuk aktivitas, akses, dan suasana yang paling sering dicari pasangan." },
+      ],
+      "honeymoon-gili-internal-links",
+    ),
   ];
 
   if (detailImageId) {
@@ -2225,6 +2333,10 @@ const packageDocs = [
         "Ya. Paket dapat disesuaikan untuk family trip yang lebih nyaman maupun honeymoon trip yang lebih private dan romantis.",
       ),
       faq(
+        "Apakah tersedia paket wisata Lombok 3 hari 2 malam?",
+        "Tersedia. Paket 3D2N menjadi salah satu pilihan paling populer untuk first timer karena cukup efisien untuk menikmati highlight utama Lombok.",
+      ),
+      faq(
         "Apakah wisatawan luar negeri bisa booking juga?",
         "Bisa. Paket ini juga cocok untuk tamu dari Malaysia, Singapura, Australia, Eropa, dan negara lainnya yang ingin perjalanan lebih praktis di Lombok.",
       ),
@@ -2233,10 +2345,10 @@ const packageDocs = [
         "Cukup hubungi kami melalui WhatsApp lalu kirim tanggal perjalanan, jumlah peserta, dan gambaran trip yang Anda inginkan.",
       ),
     ],
-    ctaMessage: "Halo, saya ingin konsultasi paket wisata Lombok mulai dari one day tour sampai 4D3N.",
-    seoTitle: "Paket Wisata Lombok Mulai Rp1 Juta per Orang | One Day Tour, 2D1N, 3D2N, 4D3N",
+    ctaMessage: "Halo, saya ingin konsultasi paket wisata Lombok untuk 3D2N, 4D3N, atau custom trip yang paling sesuai dengan tanggal perjalanan saya.",
+    seoTitle: "Paket Wisata Lombok 3D2N, 4D3N & One Day Tour | Harga Mulai Rp1 Juta",
     metaDescription:
-      "Temukan paket wisata Lombok mulai Rp1 juta per orang untuk one day tour, 2D1N, 3D2N, hingga 4D3N. Bisa termasuk hotel, transport, makan, dan itinerary fleksibel.",
+      "Cari paket wisata Lombok? Tersedia pilihan one day tour, 2D1N, 3D2N, dan 4D3N mulai Rp1 juta per orang, lengkap dengan itinerary fleksibel, hotel, transport, dan makan.",
     keywords: [
       "paket wisata lombok",
       "paket tour lombok",
@@ -2281,11 +2393,15 @@ const packageDocs = [
         "Destinasi apa yang paling cocok untuk honeymoon di Lombok?",
         "Gili Trawangan, Kuta Mandalika, pantai selatan, dan spot sunset menjadi kombinasi yang paling sering dipilih pasangan.",
       ),
+      faq(
+        "Apakah honeymoon Lombok bisa digabung dengan Gili Trawangan?",
+        "Bisa. Banyak pasangan memilih kombinasi daratan Lombok dan Gili Trawangan agar perjalanan terasa lebih lengkap, romantis, dan santai.",
+      ),
     ],
-    ctaMessage: "Ceritakan tanggal perjalanan Anda, lalu kami bantu siapkan paket honeymoon Lombok yang nyaman, fleksibel, dan terasa pas untuk berdua.",
-    seoTitle: "Paket Honeymoon Lombok Romantis 3D2N, 4D3N & Private Trip",
+    ctaMessage: "Ceritakan tanggal perjalanan, suasana trip yang Anda cari, dan pilihan hotel atau villa, lalu kami bantu siapkan paket honeymoon Lombok yang paling pas untuk berdua.",
+    seoTitle: "Paket Honeymoon Lombok 3D2N, 4D3N & Bulan Madu Romantis",
     metaDescription:
-      "Cari paket honeymoon Lombok yang nyaman dan romantis? Tersedia pilihan 3D2N, 4D3N, private trip, hotel atau villa, transport, dan itinerary fleksibel untuk pasangan.",
+      "Cari paket honeymoon Lombok yang romantis dan nyaman? Tersedia pilihan 3D2N, 4D3N, private trip, hotel atau villa, transport, dan itinerary fleksibel untuk pasangan.",
     keywords: [
       "paket honeymoon lombok",
       "honeymoon lombok",
@@ -2329,11 +2445,15 @@ const packageDocs = [
         "Apakah bisa dipakai beberapa hari?",
         "Bisa. Layanan tersedia untuk kebutuhan harian maupun multi day sesuai itinerary tamu.",
       ),
+      faq(
+        "Apakah tersedia mobil untuk rombongan atau keluarga besar?",
+        "Tersedia. Untuk peserta lebih banyak, armada seperti Hiace atau kendaraan berkapasitas besar dapat disiapkan sesuai kebutuhan trip.",
+      ),
     ],
-    ctaMessage: "Halo, saya ingin sewa mobil di Lombok dengan driver.",
-    seoTitle: "Sewa Mobil Lombok | Rental Mobil dengan Driver, Jemput Bandara, dan City Tour",
+    ctaMessage: "Halo, saya ingin sewa mobil Lombok dengan driver untuk jemput bandara, city tour, atau perjalanan harian.",
+    seoTitle: "Sewa Mobil Lombok dengan Driver | Jemput Bandara, City Tour & Harian",
     metaDescription:
-      "Cari sewa mobil Lombok? Tersedia rental mobil dengan driver untuk jemput bandara, city tour, full day trip, dan perjalanan multi day.",
+      "Cari sewa mobil Lombok dengan driver? Tersedia layanan jemput bandara, city tour, full day trip, dan perjalanan harian atau multi day dengan armada yang fleksibel.",
     keywords: ["sewa mobil lombok", "rental mobil lombok", "sewa mobil bandara lombok", "driver lombok"],
   },
 ];
@@ -2521,17 +2641,22 @@ const articleDocs = [
         "Mobil apa yang cocok untuk rombongan?",
         "Untuk rombongan, Hiace biasanya menjadi pilihan yang lebih nyaman dan praktis karena kapasitasnya lebih besar.",
       ),
+      faq(
+        "Apakah harga sewa mobil Lombok sudah termasuk driver?",
+        "Tergantung jenis layanan yang dipilih. Banyak tamu memilih mobil dengan driver karena lebih praktis untuk airport transfer, city tour, dan perjalanan wisata harian.",
+      ),
     ],
     relatedLinks: [
       "/sewa-mobil-lombok",
       "/blog/sewa-mobil-bandara-lombok",
       "/blog/sewa-mobil-lombok-plus-driver",
       "/blog/rental-hiace-lombok",
+      "/paket-wisata-lombok",
     ],
-    ctaMessage: "Kirim tanggal perjalanan dan jumlah peserta, lalu kami bantu cek armada yang tersedia beserta kisaran harganya.",
-    seoTitle: "Harga Sewa Mobil Lombok Terbaru, Jenis Armada & Tips Booking",
+    ctaMessage: "Kirim tanggal perjalanan, jumlah peserta, dan area jemput agar kami bantu cek kisaran harga sewa mobil Lombok per hari yang paling sesuai.",
+    seoTitle: "Harga Sewa Mobil Lombok per Hari Terbaru | Avanza, Hiace, Alphard",
     metaDescription:
-      "Lihat harga sewa mobil Lombok terbaru untuk Avanza, Hiace, Alphard, Fortuner, dan armada lainnya. Cocok untuk liburan, airport transfer, dan perjalanan keluarga.",
+      "Lihat harga sewa mobil Lombok per hari untuk Avanza, Hiace, Alphard, Fortuner, dan armada lainnya. Cocok untuk liburan, airport transfer, keluarga, dan rombongan.",
     keywords: [
       "harga sewa mobil lombok",
       "rental mobil lombok murah",
@@ -2873,21 +2998,22 @@ const articleDocs = [
     slug: { _type: "slug", current: "paket-wisata-lombok-3-hari-2-malam" },
     category: "Paket Wisata",
     excerpt:
-      "Panduan paket wisata Lombok 3 hari 2 malam untuk first timer yang ingin itinerary efisien dan tetap nyaman.",
+      "Panduan paket wisata Lombok 3 hari 2 malam untuk first timer, pasangan, dan keluarga yang ingin trip 3D2N lebih efisien.",
     description:
-      "Panduan paket wisata Lombok 3 hari 2 malam dengan gambaran itinerary, kelebihan durasi 3D2N, dan pilihan trip yang efisien untuk first timer.",
+      "Cari paket wisata Lombok 3 hari 2 malam? Simak gambaran itinerary 3D2N, highlight destinasi, dan alasan kenapa durasi ini paling sering dipilih first timer.",
     publishedAt: "2026-05-20T09:00:00.000Z",
     content: buildPaketWisataLombok3Hari2MalamContent(),
     faqs: [
       faq("Apakah paket wisata Lombok 3 hari 2 malam cocok untuk first timer?", "Cocok, karena durasi 3D2N cukup ideal untuk menikmati highlight Lombok tanpa itinerary terlalu padat."),
       faq("Destinasi apa yang biasanya masuk paket 3D2N?", "Biasanya mencakup kombinasi area selatan, sunset spot, dan satu highlight utama seperti Gili atau destinasi daratan populer."),
       faq("Siapa yang paling cocok memilih paket ini?", "Paket ini cocok untuk pasangan, keluarga, dan wisatawan dari luar kota yang ingin liburan efisien."),
+      faq("Berapa harga paket wisata Lombok 3 hari 2 malam?", "Harga menyesuaikan jumlah peserta, hotel, area destinasi, dan fasilitas yang diambil, tetapi format 3D2N sering menjadi pilihan paling seimbang untuk first timer."),
     ],
-    relatedLinks: ["/paket-wisata-lombok", "/blog/itinerary-lombok-3-hari", "/wisata/gili-trawangan"],
-    ctaMessage: "Halo, saya ingin paket wisata Lombok 3 hari 2 malam.",
-    seoTitle: "Paket Wisata Lombok 3 Hari 2 Malam untuk Liburan yang Efisien",
+    relatedLinks: ["/paket-wisata-lombok", "/blog/itinerary-lombok-3-hari", "/wisata/gili-trawangan", "/sewa-mobil-lombok"],
+    ctaMessage: "Halo, saya ingin paket wisata Lombok 3 hari 2 malam dengan itinerary yang efisien untuk tanggal perjalanan saya.",
+    seoTitle: "Paket Wisata Lombok 3 Hari 2 Malam | Itinerary 3D2N untuk First Timer",
     metaDescription:
-      "Cari paket wisata Lombok 3 hari 2 malam? Simak gambaran itinerary, kelebihan durasi 3D2N, dan tips memilih trip yang efisien untuk first timer.",
+      "Cari paket wisata Lombok 3 hari 2 malam? Lihat gambaran itinerary 3D2N, highlight destinasi, dan alasan kenapa durasi ini cocok untuk first timer, pasangan, dan keluarga.",
     keywords: ["paket wisata lombok 3 hari 2 malam", "paket tour lombok 3 hari 2 malam", "trip lombok 3d2n"],
   },
   {
@@ -2946,21 +3072,22 @@ const articleDocs = [
     slug: { _type: "slug", current: "honeymoon-gili-trawangan" },
     category: "Honeymoon",
     excerpt:
-      "Panduan honeymoon Gili Trawangan untuk pasangan yang mencari sunset, island vibes, dan liburan romantis.",
+      "Panduan honeymoon Gili Trawangan untuk pasangan yang mencari sunset, island vibes, dan liburan romantis yang lebih private.",
     description:
-      "Informasi honeymoon Gili Trawangan untuk pasangan yang ingin suasana romantis, sunset, island stay, dan trip yang lebih private.",
+      "Cari honeymoon Gili Trawangan? Simak ide bulan madu romantis dengan sunset, island stay, dan kombinasi trip yang nyaman untuk pasangan.",
     publishedAt: "2026-05-20T09:30:00.000Z",
     content: buildHoneymoonGiliTrawanganContent(),
     faqs: [
       faq("Apakah Gili Trawangan cocok untuk honeymoon?", "Sangat cocok karena punya suasana pulau yang santai, sunset yang kuat, dan pengalaman yang terasa lebih private untuk pasangan."),
       faq("Lebih baik honeymoon day trip atau menginap di Gili?", "Menginap biasanya lebih ideal untuk honeymoon karena pasangan bisa menikmati sunset dan suasana malam di pulau dengan lebih santai."),
       faq("Apakah honeymoon Gili bisa digabung dengan paket Lombok lain?", "Bisa, honeymoon Gili Trawangan sangat cocok dikombinasikan dengan paket honeymoon Lombok yang lebih panjang."),
+      faq("Apa yang paling sering dicari pasangan saat honeymoon ke Gili Trawangan?", "Biasanya pasangan mencari sunset spot, penginapan yang nyaman, island vibes yang tenang, dan susunan trip yang tidak terlalu padat."),
     ],
-    relatedLinks: ["/paket-honeymoon-lombok", "/wisata/gili-trawangan", "/blog/tour-gili-trawangan-dari-lombok"],
-    ctaMessage: "Halo, saya ingin honeymoon ke Gili Trawangan.",
-    seoTitle: "Honeymoon Gili Trawangan untuk Liburan Romantis di Pulau Favorit",
+    relatedLinks: ["/paket-honeymoon-lombok", "/wisata/gili-trawangan", "/blog/tour-gili-trawangan-dari-lombok", "/paket-wisata-lombok"],
+    ctaMessage: "Halo, saya ingin honeymoon ke Gili Trawangan atau paket honeymoon Lombok yang bisa disesuaikan untuk berdua.",
+    seoTitle: "Honeymoon Gili Trawangan | Ide Bulan Madu Romantis di Lombok",
     metaDescription:
-      "Cari honeymoon Gili Trawangan? Simak inspirasi trip romantis dengan sunset, island vibes, dan suasana private untuk pasangan.",
+      "Cari honeymoon Gili Trawangan? Simak ide bulan madu romantis dengan sunset, island vibes, island stay, dan suasana private yang cocok untuk pasangan.",
     keywords: ["honeymoon gili trawangan", "bulan madu gili trawangan", "paket honeymoon gili", "trip romantis gili trawangan"],
   },
   {
