@@ -378,6 +378,98 @@ const seedVisuals = {
   },
 };
 
+const aiSeedImages = {
+  "article-harga-sewa-mobil-lombok": {
+    hero: {
+      imageSize: "landscape_16_9",
+      prompt:
+        "realistic premium travel editorial photo, modern silver family car parked at a scenic Lombok coastal road overlook, turquoise sea and green hills in background, bright tropical daylight, clean composition with luxury travel mood, no text, no watermark, high detail",
+    },
+    "gallery-1": {
+      imageSize: "landscape_16_9",
+      prompt:
+        "realistic travel photo of airport pickup in Lombok, professional driver standing beside a clean white car near a tropical arrival area, warm daylight, premium service feeling, elegant composition, no text, no watermark",
+    },
+    "gallery-2": {
+      imageSize: "landscape_16_9",
+      prompt:
+        "realistic travel lifestyle photo, couple and family enjoying a private Lombok road trip with a comfortable rental car near scenic beach cliffs, tropical blue sky, premium tourism atmosphere, no text, no watermark",
+    },
+  },
+  "article-sewa-mobil-lombok-dengan-driver": {
+    hero: {
+      imageSize: "landscape_16_9",
+      prompt:
+        "realistic premium transport photo in Lombok, friendly local driver opening the door of a clean black SUV for travelers, tropical resort entrance, bright daylight, luxury service atmosphere, no text, no watermark",
+    },
+    "gallery-1": {
+      imageSize: "landscape_16_9",
+      prompt:
+        "realistic travel photo, comfortable private car with driver on a Lombok coastal route, passengers relaxing inside during sightseeing, cinematic daylight, premium tourism style, no text, no watermark",
+    },
+    "gallery-2": {
+      imageSize: "landscape_16_9",
+      prompt:
+        "realistic family trip photo in Lombok, spacious rental car with driver near a beach viewpoint, luggage neatly arranged, clean tropical setting, natural colors, no text, no watermark",
+    },
+  },
+  "article-paket-wisata-lombok-3-hari-2-malam": {
+    hero: {
+      imageSize: "landscape_16_9",
+      prompt:
+        "realistic premium travel editorial image of a 3 day 2 night Lombok vacation, travelers enjoying turquoise beach and dramatic hills at Kuta Lombok, bright tropical weather, elegant tourism atmosphere, no text, no watermark",
+    },
+    "gallery-1": {
+      imageSize: "landscape_16_9",
+      prompt:
+        "realistic travel photo of island hopping in Lombok, visitors arriving at a beautiful Gili pier with crystal clear water and small boats, premium holiday mood, no text, no watermark",
+    },
+    "gallery-2": {
+      imageSize: "landscape_16_9",
+      prompt:
+        "realistic travel image, couple and family watching sunset from a scenic Lombok hill during a curated vacation itinerary, warm golden hour, premium tourism feel, no text, no watermark",
+    },
+  },
+  "article-harga-paket-wisata-lombok-3-hari-2-malam": {
+    hero: {
+      imageSize: "landscape_16_9",
+      prompt:
+        "realistic editorial travel image for Lombok package pricing guide, travelers enjoying a balanced itinerary with beach, hills and comfortable transport in Lombok, premium vacation look, tropical daylight, no text, no watermark",
+    },
+    "gallery-1": {
+      imageSize: "landscape_16_9",
+      prompt:
+        "realistic travel planning scene in Lombok, happy tourists checking itinerary while looking at ocean view from a stylish resort terrace, premium tour planning atmosphere, no text, no watermark",
+    },
+    "gallery-2": {
+      imageSize: "landscape_16_9",
+      prompt:
+        "realistic tourism photo in Lombok, guided day trip with comfortable car near iconic beach and hill scenery, polished travel brand style, tropical sunlight, no text, no watermark",
+    },
+  },
+  "article-honeymoon-gili-trawangan": {
+    hero: {
+      imageSize: "landscape_16_9",
+      prompt:
+        "realistic luxury honeymoon photo on Gili Trawangan, romantic couple walking on white sand beach at sunset with turquoise sea and elegant island resort mood, premium travel editorial style, no text, no watermark",
+    },
+    "gallery-1": {
+      imageSize: "landscape_16_9",
+      prompt:
+        "realistic romantic island dinner on Gili Trawangan beach, couple table setup with lanterns and sunset sky, premium honeymoon atmosphere, tasteful travel photography, no text, no watermark",
+    },
+    "gallery-2": {
+      imageSize: "landscape_16_9",
+      prompt:
+        "realistic honeymoon travel photo, couple cycling along tropical beach path on Gili Trawangan with soft morning light, premium island getaway mood, no text, no watermark",
+    },
+  },
+};
+
+function createAiImageUrl(prompt, imageSize) {
+  return `https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=${encodeURIComponent(prompt)}&image_size=${imageSize}`;
+}
+
 function createSeedSvg({ title, subtitle, accent, background, detail, variant }) {
   const safeTitle = escapeXml(title);
   const safeSubtitle = escapeXml(subtitle);
@@ -422,7 +514,8 @@ async function ensureSeedAsset(docId, variant, title, subtitle) {
     background: "#0f172a",
     detail: "Lombok travel content",
   };
-  const filename = `${cacheKey}.svg`;
+  const aiImageConfig = aiSeedImages[docId]?.[variant];
+  const filename = `${cacheKey}.${aiImageConfig ? "png" : "svg"}`;
   const existing = await client.fetch(`*[_type == "sanity.imageAsset" && originalFilename == $filename][0]{_id}`, {
     filename,
   });
@@ -432,22 +525,39 @@ async function ensureSeedAsset(docId, variant, title, subtitle) {
     return existing;
   }
 
-  const svg = createSeedSvg({
-    title,
-    subtitle,
-    accent: visual.accent,
-    background: visual.background,
-    detail: visual.detail,
-    variant,
-  });
   let asset;
 
   for (let attempt = 0; attempt < 5; attempt += 1) {
     try {
-      asset = await client.assets.upload("image", Buffer.from(svg), {
-        filename,
-        contentType: "image/svg+xml",
-      });
+      if (aiImageConfig) {
+        const response = await fetch(createAiImageUrl(aiImageConfig.prompt, aiImageConfig.imageSize));
+
+        if (!response.ok) {
+          throw new Error(`Gagal generate image AI ${filename}: ${response.status} ${response.statusText}`);
+        }
+
+        const contentType = response.headers.get("content-type") || "image/png";
+        const imageBuffer = Buffer.from(await response.arrayBuffer());
+
+        asset = await client.assets.upload("image", imageBuffer, {
+          filename,
+          contentType,
+        });
+      } else {
+        const svg = createSeedSvg({
+          title,
+          subtitle,
+          accent: visual.accent,
+          background: visual.background,
+          detail: visual.detail,
+          variant,
+        });
+
+        asset = await client.assets.upload("image", Buffer.from(svg), {
+          filename,
+          contentType: "image/svg+xml",
+        });
+      }
       break;
     } catch (error) {
       const retryAfterSeconds = Number(error?.response?.headers?.["retry-after"] || 1);
