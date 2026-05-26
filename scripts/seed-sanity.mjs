@@ -311,6 +311,16 @@ const seedVisuals = {
     background: "#24364a",
     detail: "Large group transport and airport transfer",
   },
+  "article-sewa-mobil-lombok-dengan-driver": {
+    accent: "#ffd166",
+    background: "#24354a",
+    detail: "Driver service and practical island travel",
+  },
+  "article-harga-paket-wisata-lombok-3-hari-2-malam": {
+    accent: "#43aa8b",
+    background: "#183a37",
+    detail: "3D2N pricing guide and itinerary overview",
+  },
   "article-sewa-alphard-lombok": {
     accent: "#f4b400",
     background: "#2e2b38",
@@ -1868,6 +1878,162 @@ function buildRentalHiaceLombokContent(detailImageId) {
   return blocks;
 }
 
+function buildSewaMobilLombokDenganDriverContent(detailImageId) {
+  const blocks = [
+    headingBlock("Sewa mobil Lombok dengan driver untuk perjalanan yang lebih santai", "h2", "driver-overview"),
+    normalBlock(
+      "Sewa mobil Lombok dengan driver menjadi pilihan yang sangat relevan untuk tamu yang ingin perjalanan terasa lebih praktis sejak hari pertama tiba. Banyak wisatawan datang ke Lombok dengan agenda liburan yang cukup padat, sehingga menggunakan mobil sekaligus driver membantu perjalanan terasa lebih ringan tanpa harus repot memikirkan rute, area parkir, atau kondisi jalan yang belum familiar.",
+      "driver-overview-body-1",
+    ),
+    normalBlock(
+      "Layanan seperti ini cocok untuk pasangan, keluarga, tamu first timer, sampai rombongan kecil yang ingin fokus menikmati perjalanan. Driver lokal biasanya lebih memahami ritme perjalanan di Lombok, jalur menuju destinasi populer, serta pola waktu yang lebih realistis untuk perjalanan harian.",
+      "driver-overview-body-2",
+    ),
+    headingBlock("Kapan layanan dengan driver paling terasa manfaatnya", "h2", "driver-fit"),
+    bulletBlock("Saat membutuhkan jemput bandara dan langsung lanjut ke hotel atau area wisata.", "driver-fit-1"),
+    bulletBlock("Saat tamu baru pertama kali ke Lombok dan ingin perjalanan lebih tenang.", "driver-fit-2"),
+    bulletBlock("Saat family trip membutuhkan ritme yang santai dan tidak ingin bergantian menyetir.", "driver-fit-3"),
+    bulletBlock("Saat perjalanan mencakup beberapa tujuan dalam satu hari agar waktu lebih efisien.", "driver-fit-4"),
+    headingBlock("Keuntungan dibanding lepas kunci", "h2", "driver-benefits"),
+    normalBlock(
+      "Bagi banyak tamu, perbedaannya bukan hanya soal siapa yang menyetir, tetapi soal pengalaman perjalanan secara keseluruhan. Dengan driver, tamu bisa lebih santai menikmati pemandangan, berdiskusi soal rencana hari itu, dan menjaga energi selama liburan. Ini sangat membantu terutama untuk tamu dari luar daerah yang ingin fokus pada pengalaman, bukan detail teknis perjalanan.",
+      "driver-benefits-body-1",
+    ),
+    normalBlock(
+      "Perjalanan juga biasanya terasa lebih efisien karena rute bisa dibantu lebih praktis. Untuk trip singkat, airport transfer, dan perjalanan wisata harian di Lombok, layanan mobil dengan driver menjadi salah satu opsi paling aman dan nyaman.",
+      "driver-benefits-body-2",
+    ),
+  ];
+
+  if (detailImageId) {
+    blocks.push(imageBlock(detailImageId, "Visual sewa mobil Lombok dengan driver", "driver-image"));
+  }
+
+  blocks.push(
+    headingBlock("Jenis perjalanan yang paling sering memakai driver", "h2", "driver-routes"),
+    bulletBlock("Airport transfer dari dan ke Bandara Lombok.", "driver-routes-1"),
+    bulletBlock("Trip harian ke Kuta Lombok, Senggigi, atau kombinasi pantai dan bukit.", "driver-routes-2"),
+    bulletBlock("Perjalanan ke pelabuhan untuk lanjut ke Gili.", "driver-routes-3"),
+    bulletBlock("Family trip dan perjalanan tamu dengan koper atau bagasi lebih banyak.", "driver-routes-4"),
+    headingBlock("Armada yang cocok untuk pasangan, keluarga, dan rombongan", "h2", "driver-fleet"),
+    normalBlock(
+      "Pemilihan armada sebaiknya disesuaikan dengan jumlah tamu, jumlah koper, dan area tujuan. Untuk pasangan atau perjalanan ringan, mobil keluarga biasanya sudah cukup nyaman. Untuk keluarga besar atau rombongan yang membutuhkan ruang lebih lega, kendaraan seperti Hiace lebih cocok agar perjalanan tetap nyaman sejak awal.",
+      "driver-fleet-body",
+    ),
+    linkedNormalBlock(
+      [
+        { text: "Jika Anda ingin melihat layanan utamanya, baca juga halaman " },
+        { text: "sewa mobil Lombok", href: "/sewa-mobil-lombok" },
+        { text: ", panduan " },
+        { text: "harga sewa mobil Lombok", href: "/blog/harga-sewa-mobil-lombok" },
+        { text: ", dan opsi " },
+        { text: "sewa mobil bandara Lombok", href: "/blog/sewa-mobil-bandara-lombok" },
+        { text: " untuk perjalanan sejak pertama tiba." },
+      ],
+      "driver-links",
+    ),
+    headingBlock("Hal yang memengaruhi harga layanan dengan driver", "h2", "driver-pricing"),
+    normalBlock(
+      "Biaya layanan biasanya menyesuaikan jenis armada, durasi pemakaian, area jemput, rute perjalanan, serta kebutuhan khusus selama trip. Karena itu, penawaran yang paling akurat biasanya diberikan setelah tanggal perjalanan, jumlah tamu, dan pola rute dijelaskan sejak awal.",
+      "driver-pricing-body",
+    ),
+    headingBlock("Tips booking sebelum datang ke Lombok", "h2", "driver-tips"),
+    bulletBlock("Kirim tanggal kedatangan dan jam jemput.", "driver-tip-1"),
+    bulletBlock("Jelaskan jumlah tamu dan jumlah koper agar armada sesuai.", "driver-tip-2"),
+    bulletBlock("Sebutkan tujuan utama seperti Kuta, Senggigi, atau pelabuhan.", "driver-tip-3"),
+    bulletBlock("Tanyakan apakah layanan dipakai transfer saja atau full day trip.", "driver-tip-4"),
+    quoteBlock(
+      "Sewa mobil Lombok dengan driver paling cocok untuk tamu yang ingin perjalanan lebih praktis, nyaman, dan efisien tanpa repot menyusun detail teknis di jalan.",
+      "driver-quote",
+    ),
+  );
+
+  return blocks;
+}
+
+function buildHargaPaketWisataLombok3Hari2MalamContent(detailImageId) {
+  const blocks = [
+    headingBlock("Harga paket wisata Lombok 3 hari 2 malam banyak dicari karena paling seimbang", "h2", "price-3d2n-overview"),
+    normalBlock(
+      "Harga paket wisata Lombok 3 hari 2 malam menjadi salah satu informasi yang paling sering dicari calon tamu sebelum booking. Durasi 3D2N terasa pas untuk wisatawan yang ingin menikmati destinasi utama tanpa itinerary terlalu padat, sehingga cocok untuk first timer, pasangan, keluarga, maupun rombongan kecil yang datang dengan waktu liburan terbatas.",
+      "price-3d2n-overview-body-1",
+    ),
+    normalBlock(
+      "Bagi banyak tamu, yang dicari bukan hanya nominal akhir, tetapi gambaran paket secara menyeluruh. Mereka ingin tahu fasilitas apa saja yang umumnya sudah termasuk, destinasi seperti apa yang biasa masuk itinerary, dan seperti apa ritme perjalanan selama tiga hari dua malam di Lombok.",
+      "price-3d2n-overview-body-2",
+    ),
+    headingBlock("Faktor yang paling memengaruhi harga", "h2", "price-3d2n-factors"),
+    bulletBlock("Jumlah peserta dalam satu trip.", "price-3d2n-factor-1"),
+    bulletBlock("Pilihan hotel atau penginapan yang digunakan.", "price-3d2n-factor-2"),
+    bulletBlock("Jenis kendaraan dan pola transport selama trip.", "price-3d2n-factor-3"),
+    bulletBlock("Destinasi yang ingin dimasukkan ke itinerary.", "price-3d2n-factor-4"),
+    bulletBlock("Format perjalanan private atau penyesuaian khusus lainnya.", "price-3d2n-factor-5"),
+    headingBlock("Kenapa paket 3D2N paling sering dipilih", "h2", "price-3d2n-why"),
+    normalBlock(
+      "Format 3 hari 2 malam cukup fleksibel untuk menampung perjalanan kedatangan, satu hari utama untuk eksplor destinasi, dan satu hari penutup yang tetap nyaman sebelum pulang. Bagi tamu yang baru pertama kali ke Lombok, durasi ini sering dianggap paling ideal karena tidak terlalu singkat, tetapi juga tidak terlalu berat.",
+      "price-3d2n-why-body-1",
+    ),
+    normalBlock(
+      "Paket seperti ini juga mudah diarahkan sesuai gaya liburan tamu. Ada yang ingin fokus ke pantai dan bukit di selatan, ada yang ingin memasukkan Gili Trawangan, ada juga yang lebih suka ritme santai dengan kombinasi wisata, kuliner, dan spot sunset.",
+      "price-3d2n-why-body-2",
+    ),
+  ];
+
+  if (detailImageId) {
+    blocks.push(imageBlock(detailImageId, "Visual harga paket wisata Lombok 3 hari 2 malam", "price-3d2n-image"));
+  }
+
+  blocks.push(
+    headingBlock("Gambaran itinerary 3 hari 2 malam", "h2", "price-3d2n-itinerary"),
+    normalBlock(
+      "Hari pertama biasanya dipakai untuk kedatangan, check-in, dan agenda ringan agar perjalanan tetap nyaman. Hari kedua menjadi inti trip dengan fokus ke destinasi utama. Hari ketiga biasanya diisi agenda singkat sebelum kembali. Susunan seperti ini terasa efisien untuk tamu yang ingin menikmati Lombok tanpa ritme terlalu padat.",
+      "price-3d2n-itinerary-body-1",
+    ),
+    bulletBlock("Hari pertama: kedatangan, penyesuaian, dan agenda ringan.", "price-3d2n-itinerary-1"),
+    bulletBlock("Hari kedua: fokus ke destinasi utama dan highlight perjalanan.", "price-3d2n-itinerary-2"),
+    bulletBlock("Hari ketiga: agenda singkat sebelum kembali atau lanjut perjalanan.", "price-3d2n-itinerary-3"),
+    headingBlock("Destinasi yang sering masuk paket 3D2N", "h2", "price-3d2n-destinations"),
+    bulletBlock("Gili Trawangan untuk island trip dan suasana liburan yang kuat.", "price-3d2n-destinations-1"),
+    bulletBlock("Kuta Lombok, pantai selatan, dan bukit populer.", "price-3d2n-destinations-2"),
+    bulletBlock("Spot sunset, kuliner, dan area yang cocok untuk first timer.", "price-3d2n-destinations-3"),
+    linkedNormalBlock(
+      [
+        { text: "Untuk melihat gambaran paket utamanya, Anda bisa membaca halaman " },
+        { text: "paket wisata Lombok", href: "/paket-wisata-lombok" },
+        { text: ", panduan " },
+        { text: "paket wisata Lombok 3 hari 2 malam", href: "/blog/paket-wisata-lombok-3-hari-2-malam" },
+        { text: ", ide " },
+        { text: "itinerary Lombok 3 hari", href: "/blog/itinerary-lombok-3-hari" },
+        { text: ", dan referensi " },
+        { text: "wisata Gili Trawangan", href: "/wisata/gili-trawangan" },
+        { text: " bila ingin memasukkan island trip ke dalam rencana perjalanan." },
+      ],
+      "price-3d2n-links",
+    ),
+    headingBlock("Fasilitas yang umumnya sudah termasuk", "h2", "price-3d2n-inclusions"),
+    normalBlock(
+      "Paket wisata Lombok 3 hari 2 malam umumnya sudah mencakup kebutuhan dasar perjalanan seperti hotel, transport, dan makan sesuai format paket yang dipilih. Detailnya bisa berbeda tergantung jumlah peserta, tipe hotel, serta fokus destinasi yang diambil.",
+      "price-3d2n-inclusions-body",
+    ),
+    headingBlock("Cocok untuk siapa", "h2", "price-3d2n-fit"),
+    bulletBlock("First timer yang ingin liburan lebih terarah.", "price-3d2n-fit-1"),
+    bulletBlock("Pasangan yang ingin durasi cukup tanpa trip terlalu panjang.", "price-3d2n-fit-2"),
+    bulletBlock("Keluarga kecil yang ingin itinerary efisien.", "price-3d2n-fit-3"),
+    bulletBlock("Tamu dari kota besar yang datang dengan waktu terbatas.", "price-3d2n-fit-4"),
+    headingBlock("Tips sebelum booking paket 3D2N", "h2", "price-3d2n-tips"),
+    bulletBlock("Tentukan tanggal kedatangan dan kepulangan lebih dulu.", "price-3d2n-tip-1"),
+    bulletBlock("Sampaikan jumlah peserta sejak awal agar hitungan paket lebih akurat.", "price-3d2n-tip-2"),
+    bulletBlock("Jelaskan apakah ingin trip santai atau lebih padat.", "price-3d2n-tip-3"),
+    bulletBlock("Pastikan destinasi utama yang ingin diprioritaskan.", "price-3d2n-tip-4"),
+    quoteBlock(
+      "Harga paket wisata Lombok 3 hari 2 malam paling tepat dilihat dari keseimbangan antara itinerary, fasilitas, kenyamanan, dan ritme perjalanan yang sesuai kebutuhan tamu.",
+      "price-3d2n-quote",
+    ),
+  );
+
+  return blocks;
+}
+
 function buildSewaAlphardLombokContent(detailImageId) {
   const blocks = [
     headingBlock("Sewa Alphard Lombok untuk trip premium yang lebih nyaman", "h2", "alphard-overview"),
@@ -3162,6 +3328,77 @@ const articleDocs = [
     metaDescription:
       "Butuh rental Hiace Lombok untuk rombongan? Cocok untuk family trip, outing kantor, airport transfer, dan perjalanan wisata dengan kapasitas peserta lebih besar.",
     keywords: ["rental hiace lombok", "sewa hiace lombok", "hiace lombok", "hiace untuk rombongan lombok"],
+  },
+  {
+    _id: "article-sewa-mobil-lombok-dengan-driver",
+    _type: "article",
+    title: "Sewa Mobil Lombok Dengan Driver untuk Liburan yang Lebih Nyaman",
+    slug: { _type: "slug", current: "sewa-mobil-lombok-dengan-driver" },
+    category: "Sewa Mobil",
+    excerpt:
+      "Panduan sewa mobil Lombok dengan driver untuk tamu yang ingin perjalanan lebih praktis, nyaman, dan efisien sejak tiba hingga selesai liburan.",
+    description:
+      "Cari tahu keuntungan sewa mobil Lombok dengan driver, jenis perjalanan yang paling cocok, pilihan armada, dan hal-hal yang memengaruhi biaya agar perjalanan terasa lebih mudah.",
+    publishedAt: "2026-05-21T08:00:00.000Z",
+    content: buildSewaMobilLombokDenganDriverContent(),
+    faqs: [
+      faq("Apakah tersedia sewa mobil Lombok dengan driver?", "Ya, layanan mobil dengan driver tersedia untuk berbagai kebutuhan seperti jemput bandara, perjalanan wisata harian, family trip, dan transfer ke area tujuan populer di Lombok."),
+      faq("Berapa harga sewa mobil dengan driver di Lombok?", "Kisaran harga tergantung jenis armada, durasi pemakaian, area jemput, dan rute perjalanan. Penawaran paling akurat biasanya diberikan setelah kebutuhan perjalanan dijelaskan."),
+      faq("Apakah bisa dipakai untuk jemput bandara?", "Bisa. Banyak tamu memakai layanan ini untuk jemput bandara agar perjalanan sejak hari pertama terasa lebih praktis dan nyaman."),
+      faq("Mobil apa yang cocok untuk keluarga atau rombongan?", "Untuk pasangan atau keluarga kecil, mobil keluarga biasanya sudah cukup. Untuk rombongan yang membutuhkan ruang lebih lega, kendaraan seperti Hiace lebih cocok."),
+      faq("Apakah driver bisa membantu itinerary harian?", "Ya, driver biasanya membantu perjalanan lebih efisien karena sudah memahami jalur umum dan ritme perjalanan ke destinasi populer di Lombok."),
+    ],
+    relatedLinks: ["/sewa-mobil-lombok", "/blog/harga-sewa-mobil-lombok", "/blog/sewa-mobil-bandara-lombok", "/blog/rental-hiace-lombok"],
+    ctaMessage:
+      "Kirim tanggal perjalanan, jumlah tamu, dan rute tujuan agar kami bantu rekomendasikan mobil dengan driver yang paling sesuai.",
+    seoTitle: "Sewa Mobil Lombok Dengan Driver untuk Trip, Bandara, dan Wisata",
+    metaDescription:
+      "Cari layanan sewa mobil Lombok dengan driver untuk bandara, liburan keluarga, dan perjalanan harian. Pilih armada yang sesuai dan atur trip lebih praktis.",
+    keywords: [
+      "sewa mobil lombok dengan driver",
+      "rental mobil lombok dengan supir",
+      "sewa mobil lombok plus driver",
+      "mobil dengan driver di lombok",
+      "driver wisata lombok",
+    ],
+  },
+  {
+    _id: "article-harga-paket-wisata-lombok-3-hari-2-malam",
+    _type: "article",
+    title: "Harga Paket Wisata Lombok 3 Hari 2 Malam dan Gambaran Itinerary",
+    slug: { _type: "slug", current: "harga-paket-wisata-lombok-3-hari-2-malam" },
+    category: "Paket Wisata",
+    excerpt:
+      "Panduan harga paket wisata Lombok 3 hari 2 malam untuk tamu yang ingin memahami kisaran biaya, fasilitas, dan gambaran itinerary sebelum booking.",
+    description:
+      "Lihat gambaran harga paket wisata Lombok 3 hari 2 malam, faktor yang memengaruhi biaya, destinasi populer, fasilitas yang termasuk, dan tips memilih paket yang sesuai.",
+    publishedAt: "2026-05-21T08:10:00.000Z",
+    content: buildHargaPaketWisataLombok3Hari2MalamContent(),
+    faqs: [
+      faq("Berapa harga paket wisata Lombok 3 hari 2 malam?", "Kisaran harga tergantung jumlah peserta, pilihan hotel, transport, dan destinasi yang dimasukkan ke itinerary. Harga terbaik biasanya dihitung setelah kebutuhan perjalanan dijelaskan."),
+      faq("Apa saja yang biasanya sudah termasuk dalam paket 3D2N?", "Umumnya paket sudah mencakup komponen dasar seperti hotel, transport, dan makan sesuai format trip yang dipilih. Detailnya bisa berbeda tergantung kebutuhan tamu."),
+      faq("Destinasi apa yang umum masuk itinerary 3 hari 2 malam?", "Destinasi yang umum dipilih antara lain Gili Trawangan, Kuta Lombok, pantai, bukit, dan spot populer lain yang cocok untuk first timer."),
+      faq("Apakah paket ini cocok untuk first timer?", "Ya, justru paket 3 hari 2 malam sering dipilih oleh tamu yang baru pertama kali ke Lombok karena perjalanannya lebih terarah dan efisien."),
+      faq("Bisakah itinerary disesuaikan dengan kebutuhan tamu?", "Bisa. Itinerary biasanya dapat disesuaikan dengan jumlah peserta, gaya perjalanan, fokus destinasi, dan ritme liburan yang diinginkan."),
+    ],
+    relatedLinks: [
+      "/paket-wisata-lombok",
+      "/blog/paket-wisata-lombok-3-hari-2-malam",
+      "/blog/itinerary-lombok-3-hari",
+      "/wisata/gili-trawangan",
+    ],
+    ctaMessage:
+      "Kirim tanggal trip dan jumlah peserta, lalu kami bantu hitungkan gambaran paket wisata Lombok 3 hari 2 malam yang paling sesuai.",
+    seoTitle: "Harga Paket Wisata Lombok 3 Hari 2 Malam, Fasilitas dan Itinerary",
+    metaDescription:
+      "Lihat gambaran harga paket wisata Lombok 3 hari 2 malam, destinasi populer, fasilitas yang termasuk, dan tips memilih paket yang cocok untuk liburan Anda.",
+    keywords: [
+      "harga paket wisata lombok 3 hari 2 malam",
+      "paket wisata lombok 3 hari 2 malam harga",
+      "biaya tour lombok 3d2n",
+      "paket tour lombok 3 hari 2 malam",
+      "trip lombok 3 hari 2 malam",
+    ],
   },
   {
     _id: "article-sewa-alphard-lombok",
