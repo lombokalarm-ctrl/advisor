@@ -42,6 +42,9 @@ const client = createClient({
 });
 
 const assetCache = new Map();
+const MIN_AI_IMAGE_BYTES = 60_000;
+const MAX_AI_IMAGE_ATTEMPTS = 8;
+const AI_IMAGE_RETRY_DELAY_MS = 8_000;
 
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -470,6 +473,41 @@ function createAiImageUrl(prompt, imageSize) {
   return `https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=${encodeURIComponent(prompt)}&image_size=${imageSize}`;
 }
 
+function isLikelyGeneratingPlaceholder(contentType, imageBuffer) {
+  if (!contentType || !contentType.startsWith("image/")) {
+    return true;
+  }
+
+  return imageBuffer.length < MIN_AI_IMAGE_BYTES;
+}
+
+async function fetchAiImageBuffer(prompt, imageSize, filename) {
+  for (let attempt = 1; attempt <= MAX_AI_IMAGE_ATTEMPTS; attempt += 1) {
+    const response = await fetch(`${createAiImageUrl(prompt, imageSize)}&attempt=${attempt}`);
+
+    if (!response.ok) {
+      throw new Error(`Gagal generate image AI ${filename}: ${response.status} ${response.statusText}`);
+    }
+
+    const contentType = response.headers.get("content-type") || "image/png";
+    const imageBuffer = Buffer.from(await response.arrayBuffer());
+
+    if (!isLikelyGeneratingPlaceholder(contentType, imageBuffer)) {
+      return { contentType, imageBuffer };
+    }
+
+    if (attempt < MAX_AI_IMAGE_ATTEMPTS) {
+      console.warn(
+        `Gambar AI ${filename} masih placeholder (${imageBuffer.length} bytes). Retry ${attempt}/${MAX_AI_IMAGE_ATTEMPTS} dalam ${AI_IMAGE_RETRY_DELAY_MS / 1000} detik...`,
+      );
+      await sleep(AI_IMAGE_RETRY_DELAY_MS);
+      continue;
+    }
+  }
+
+  throw new Error(`Gambar AI ${filename} belum siap setelah ${MAX_AI_IMAGE_ATTEMPTS} percobaan.`);
+}
+
 function createSeedSvg({ title, subtitle, accent, background, detail, variant }) {
   const safeTitle = escapeXml(title);
   const safeSubtitle = escapeXml(subtitle);
@@ -515,7 +553,7 @@ async function ensureSeedAsset(docId, variant, title, subtitle) {
     detail: "Lombok travel content",
   };
   const aiImageConfig = aiSeedImages[docId]?.[variant];
-  const filename = `${cacheKey}.${aiImageConfig ? "png" : "svg"}`;
+  const filename = aiImageConfig ? `${cacheKey}-ai-v2.png` : `${cacheKey}.svg`;
   const existing = await client.fetch(`*[_type == "sanity.imageAsset" && originalFilename == $filename][0]{_id}`, {
     filename,
   });
@@ -530,14 +568,11 @@ async function ensureSeedAsset(docId, variant, title, subtitle) {
   for (let attempt = 0; attempt < 5; attempt += 1) {
     try {
       if (aiImageConfig) {
-        const response = await fetch(createAiImageUrl(aiImageConfig.prompt, aiImageConfig.imageSize));
-
-        if (!response.ok) {
-          throw new Error(`Gagal generate image AI ${filename}: ${response.status} ${response.statusText}`);
-        }
-
-        const contentType = response.headers.get("content-type") || "image/png";
-        const imageBuffer = Buffer.from(await response.arrayBuffer());
+        const { contentType, imageBuffer } = await fetchAiImageBuffer(
+          aiImageConfig.prompt,
+          aiImageConfig.imageSize,
+          filename,
+        );
 
         asset = await client.assets.upload("image", imageBuffer, {
           filename,
