@@ -22,6 +22,21 @@ type HomePageData = {
   testimonials: TestimonialItem[];
 };
 
+const homepagePriorityArticleSlugs = [
+  "harga-sewa-mobil-lombok",
+  "paket-wisata-lombok-3-hari-2-malam",
+  "honeymoon-gili-trawangan",
+] as const;
+
+function sortHomepageArticles(items: ArticleItem[]) {
+  return [...items].sort((left, right) => {
+    const leftIndex = homepagePriorityArticleSlugs.indexOf(left.slug as (typeof homepagePriorityArticleSlugs)[number]);
+    const rightIndex = homepagePriorityArticleSlugs.indexOf(right.slug as (typeof homepagePriorityArticleSlugs)[number]);
+
+    return (leftIndex === -1 ? Number.MAX_SAFE_INTEGER : leftIndex) - (rightIndex === -1 ? Number.MAX_SAFE_INTEGER : rightIndex);
+  });
+}
+
 function textToPortableBlocks(...paragraphs: string[]): PortableTextNode[] {
   return paragraphs.map((paragraph, index) => ({
     _key: `block-${index + 1}`,
@@ -2654,10 +2669,12 @@ export async function getHomePageData(): Promise<HomePageData> {
     fetchSanityData<TestimonialItem[]>(homeTestimonialsQuery),
   ]);
 
+  const orderedArticles = articles?.length ? sortHomepageArticles(articles) : null;
+
   return {
     services: services?.length ? services : fallbackServices(),
     destinations: destinations?.length ? destinations : fallbackDestinations(),
-    articles: articles?.length ? articles : fallbackArticles(),
+    articles: orderedArticles?.length ? orderedArticles : fallbackArticles(),
     testimonials: testimonials?.length ? testimonials : fallbackTestimonials(),
   };
 }
