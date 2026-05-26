@@ -10,6 +10,8 @@ import { getDestinationBySlug, getDestinationSlugs } from "@/lib/cms/content";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { buildDestinationPageSchemas } from "@/lib/seo/schema";
 
+export const revalidate = 900;
+
 type DestinationPageProps = {
   params: Promise<{ slug: string }>;
 };

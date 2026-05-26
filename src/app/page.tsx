@@ -8,6 +8,8 @@ import { getHomePageData } from "@/lib/cms/content";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { buildHomePageSchemas } from "@/lib/seo/schema";
 
+export const revalidate = 900;
+
 export const metadata = buildMetadata({
   title: "LombokAdvisor | Paket Wisata, Honeymoon, dan Sewa Mobil di Lombok",
   description:

@@ -41,7 +41,21 @@ export const homeDestinationsQuery = groq`
 `;
 
 export const homeArticlesQuery = groq`
-  *[_type == "article"] | order(_createdAt desc)[0...3]{
+  *[
+    _type == "article" &&
+    slug.current in [
+      "harga-sewa-mobil-lombok",
+      "paket-wisata-lombok-3-hari-2-malam",
+      "honeymoon-gili-trawangan"
+    ]
+  ] | order(
+    select(
+      slug.current == "harga-sewa-mobil-lombok" => 0,
+      slug.current == "paket-wisata-lombok-3-hari-2-malam" => 1,
+      slug.current == "honeymoon-gili-trawangan" => 2,
+      99
+    )
+  )[0...3]{
     title,
     "slug": slug.current,
     category,

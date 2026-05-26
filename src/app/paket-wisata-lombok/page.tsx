@@ -9,6 +9,8 @@ import { getPackageBySlug } from "@/lib/cms/content";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { buildServicePageSchemas } from "@/lib/seo/schema";
 
+export const revalidate = 900;
+
 export async function generateMetadata(): Promise<Metadata> {
   const service = await getPackageBySlug("paket-wisata-lombok");
 

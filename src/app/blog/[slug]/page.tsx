@@ -11,6 +11,8 @@ import { getArticleBySlug, getArticleSlugs } from "@/lib/cms/content";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { buildArticlePageSchemas } from "@/lib/seo/schema";
 
+export const revalidate = 900;
+
 type ArticlePageProps = {
   params: Promise<{ slug: string }>;
 };
