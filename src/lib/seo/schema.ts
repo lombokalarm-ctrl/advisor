@@ -204,12 +204,13 @@ export function buildDestinationPageSchemas(destination: DestinationItem, path: 
 export function buildArticlePageSchemas(article: ArticleItem, path: string) {
   const articleSchema: SchemaNode = {
     "@context": "https://schema.org",
-    "@type": "Article",
+    "@type": "BlogPosting",
     headline: article.title,
     description: article.description || article.excerpt,
     url: absoluteUrl(path),
     mainEntityOfPage: absoluteUrl(path),
     articleSection: article.category,
+    inLanguage: "id-ID",
     author: {
       "@id": organizationId,
     },
@@ -222,6 +223,14 @@ export function buildArticlePageSchemas(article: ArticleItem, path: string) {
     articleSchema.datePublished = article.publishedAt;
   }
 
+  if (article.updatedAt || article.publishedAt) {
+    articleSchema.dateModified = article.updatedAt || article.publishedAt;
+  }
+
+  if (article.keywords?.length) {
+    articleSchema.keywords = article.keywords.join(", ");
+  }
+
   const images = imageUrls(article.mainImage || article.gallery);
   if (images) {
     articleSchema.image = images;
@@ -231,6 +240,7 @@ export function buildArticlePageSchemas(article: ArticleItem, path: string) {
     articleSchema,
     buildBreadcrumbSchema([
       { name: "Beranda", path: "/" },
+      { name: "Blog", path: "/blog" },
       { name: article.title, path },
     ]),
     buildFaqSchema(article.faqs),

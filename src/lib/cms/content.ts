@@ -1,13 +1,11 @@
 import { featuredDestinations, featuredServices, latestArticles } from "@/data/seed/home";
 import { articlePages, destinationPages, servicePages } from "@/data/seed/routes";
+import { getCmsArticleBySlug, getCmsArticleSlugs, getHomepageCmsArticles, getPublishedCmsArticles } from "@/lib/custom-cms/article-store";
 import type { ArticleItem, DestinationItem, PortableTextNode, ServiceItem, TestimonialItem } from "@/types/content";
 import { isSanityConfigured, sanityClient } from "@/sanity/lib/client";
 import {
-  articleBySlugQuery,
-  articleSlugsQuery,
   destinationBySlugQuery,
   destinationSlugsQuery,
-  homeArticlesQuery,
   homeDestinationsQuery,
   homePackagesQuery,
   homeTestimonialsQuery,
@@ -21,21 +19,6 @@ type HomePageData = {
   articles: ArticleItem[];
   testimonials: TestimonialItem[];
 };
-
-const homepagePriorityArticleSlugs = [
-  "harga-sewa-mobil-lombok",
-  "paket-wisata-lombok-3-hari-2-malam",
-  "honeymoon-gili-trawangan",
-] as const;
-
-function sortHomepageArticles(items: ArticleItem[]) {
-  return [...items].sort((left, right) => {
-    const leftIndex = homepagePriorityArticleSlugs.indexOf(left.slug as (typeof homepagePriorityArticleSlugs)[number]);
-    const rightIndex = homepagePriorityArticleSlugs.indexOf(right.slug as (typeof homepagePriorityArticleSlugs)[number]);
-
-    return (leftIndex === -1 ? Number.MAX_SAFE_INTEGER : leftIndex) - (rightIndex === -1 ? Number.MAX_SAFE_INTEGER : rightIndex);
-  });
-}
 
 function textToPortableBlocks(...paragraphs: string[]): PortableTextNode[] {
   return paragraphs.map((paragraph, index) => ({
@@ -2653,28 +2636,27 @@ async function fetchSanityData<T>(query: string, params?: Record<string, unknown
 }
 
 export async function getHomePageData(): Promise<HomePageData> {
+  const customCmsArticles = await getHomepageCmsArticles();
+
   if (!isSanityConfigured) {
     return {
       services: fallbackServices(),
       destinations: fallbackDestinations(),
-      articles: fallbackArticles(),
+      articles: customCmsArticles.length ? customCmsArticles : fallbackArticles(),
       testimonials: fallbackTestimonials(),
     };
   }
 
-  const [services, destinations, articles, testimonials] = await Promise.all([
+  const [services, destinations, testimonials] = await Promise.all([
     fetchSanityData<ServiceItem[]>(homePackagesQuery),
     fetchSanityData<DestinationItem[]>(homeDestinationsQuery),
-    fetchSanityData<ArticleItem[]>(homeArticlesQuery),
     fetchSanityData<TestimonialItem[]>(homeTestimonialsQuery),
   ]);
-
-  const orderedArticles = articles?.length ? sortHomepageArticles(articles) : null;
 
   return {
     services: services?.length ? services : fallbackServices(),
     destinations: destinations?.length ? destinations : fallbackDestinations(),
-    articles: orderedArticles?.length ? orderedArticles : fallbackArticles(),
+    articles: customCmsArticles.length ? customCmsArticles : fallbackArticles(),
     testimonials: testimonials?.length ? testimonials : fallbackTestimonials(),
   };
 }
@@ -2700,15 +2682,7 @@ export async function getDestinationBySlug(slug: string) {
 }
 
 export async function getArticleBySlug(slug: string) {
-  if (!isSanityConfigured) {
-    return fallbackArticleBySlug(slug);
-  }
-
-  return (
-    (await fetchSanityData<ArticleItem>(articleBySlugQuery, { slug })) ||
-    fallbackArticleBySlug(slug) ||
-    null
-  );
+  return (await getCmsArticleBySlug(slug)) || fallbackArticleBySlug(slug) || null;
 }
 
 export async function getPackageSlugs() {
@@ -2730,10 +2704,11 @@ export async function getDestinationSlugs() {
 }
 
 export async function getArticleSlugs() {
-  if (!isSanityConfigured) {
-    return Object.keys(articlePages);
-  }
+  const slugs = await getCmsArticleSlugs();
+  return slugs.length ? slugs : Object.keys(articlePages);
+}
 
-  const slugs = await fetchSanityData<string[]>(articleSlugsQuery);
-  return slugs?.length ? slugs : Object.keys(articlePages);
+export async function getPublishedArticles() {
+  const articles = await getPublishedCmsArticles();
+  return articles.length ? articles : latestArticles;
 }

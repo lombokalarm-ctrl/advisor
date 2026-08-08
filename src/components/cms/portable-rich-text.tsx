@@ -70,7 +70,8 @@ const components: PortableTextComponents = {
   },
   types: {
     image: ({ value }) => {
-      const imageUrl = urlForImage(value)?.width(1400).quality(80).url();
+      const directUrl = typeof value?.url === "string" ? value.url : null;
+      const imageUrl = directUrl || urlForImage(value)?.width(1400).quality(80).url();
 
       if (!imageUrl) {
         return null;

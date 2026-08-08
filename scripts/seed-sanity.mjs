@@ -379,6 +379,21 @@ const seedVisuals = {
     background: "#153950",
     detail: "South coast beach and relaxed short escape",
   },
+  "article-sewa-mobil-lombok-juni-2026": {
+    accent: "#ffd166",
+    background: "#23384c",
+    detail: "June 2026 transport intent for airport and day trips",
+  },
+  "article-paket-honeymoon-lombok-juni-2026": {
+    accent: "#ff8fab",
+    background: "#49253f",
+    detail: "June 2026 romantic trip for couples",
+  },
+  "article-paket-wisata-lombok-juni-2026": {
+    accent: "#43aa8b",
+    background: "#173a38",
+    detail: "June 2026 practical package for family and groups",
+  },
 };
 
 const aiSeedImages = {
@@ -2564,6 +2579,165 @@ function buildWisataTanjungAanLombokContent(detailImageId) {
   return blocks;
 }
 
+function buildSewaMobilLombokJuni2026Content(detailImageId) {
+  const blocks = [
+    headingBlock("Sewa mobil Lombok Juni 2026 untuk perjalanan yang lebih praktis sejak hari pertama", "h2", "june-rental-overview"),
+    normalBlock(
+      "Sewa mobil Lombok Juni 2026 menjadi kebutuhan yang relevan untuk tamu yang sudah mulai menyiapkan liburan, airport transfer, dan trip harian di bulan berjalan. Ketika tanggal perjalanan sudah pasti, banyak wisatawan ingin memastikan transport lebih dulu agar alur perjalanan terasa rapi sejak tiba di bandara sampai selesai liburan.",
+      "june-rental-overview-body-1",
+    ),
+    normalBlock(
+      "Layanan ini paling sering dicari oleh pasangan, keluarga, dan rombongan kecil yang tidak ingin repot mengatur kendaraan mendadak. Dengan mobil yang sesuai, perjalanan ke hotel, area wisata, atau agenda harian terasa lebih efisien dan nyaman.",
+      "june-rental-overview-body-2",
+    ),
+    headingBlock("Kebutuhan yang paling sering dicari pada bulan Juni", "h2", "june-rental-needs"),
+    bulletBlock("Jemput bandara lalu lanjut ke hotel atau area menginap.", "june-rental-need-1"),
+    bulletBlock("Mobil untuk trip harian ke Kuta Lombok, Senggigi, atau pantai selatan.", "june-rental-need-2"),
+    bulletBlock("Armada keluarga dengan ruang bagasi yang lebih aman dan nyaman.", "june-rental-need-3"),
+    bulletBlock("Layanan dengan driver untuk tamu yang ingin perjalanan lebih santai.", "june-rental-need-4"),
+    headingBlock("Kenapa booking lebih awal lebih aman", "h2", "june-rental-booking"),
+    normalBlock(
+      "Pada bulan seperti Juni, wisatawan umumnya sudah mulai aktif mencari jadwal dan menyesuaikan transport dengan tiket pesawat maupun hotel. Booking lebih awal membantu tamu mendapatkan pilihan armada yang lebih leluasa dan koordinasi perjalanan yang lebih jelas sejak awal.",
+      "june-rental-booking-body",
+    ),
+    linkedNormalBlock(
+      [
+        { text: "Jika Anda ingin melihat layanan utama, buka halaman " },
+        { text: "sewa mobil Lombok", href: "/sewa-mobil-lombok" },
+        { text: ". Untuk membandingkan kebutuhan armada dan biaya, cek juga " },
+        { text: "harga sewa mobil Lombok", href: "/blog/harga-sewa-mobil-lombok" },
+        { text: " dan " },
+        { text: "paket wisata Lombok", href: "/paket-wisata-lombok" },
+        { text: " jika perjalanan Anda sekalian ingin disusun lebih terarah." },
+      ],
+      "june-rental-links",
+    ),
+  ];
+
+  if (detailImageId) {
+    blocks.push(imageBlock(detailImageId, "Visual sewa mobil Lombok Juni 2026", "june-rental-image"));
+  }
+
+  blocks.push(
+    headingBlock("Hal yang sebaiknya disiapkan sebelum konsultasi", "h2", "june-rental-prep"),
+    bulletBlock("Tanggal pemakaian dan jam kedatangan atau penjemputan.", "june-rental-prep-1"),
+    bulletBlock("Jumlah peserta dan jumlah koper agar armada tidak terlalu sempit.", "june-rental-prep-2"),
+    bulletBlock("Area jemput, area tujuan, dan apakah dipakai transfer atau full day trip.", "june-rental-prep-3"),
+    quoteBlock(
+      "Sewa mobil Lombok Juni 2026 paling cocok untuk tamu yang ingin perjalanan lebih teratur, nyaman, dan siap jalan tanpa repot mengurus transport di saat terakhir.",
+      "june-rental-quote",
+    ),
+  );
+
+  return blocks;
+}
+
+function buildPaketHoneymoonLombokJuni2026Content(detailImageId) {
+  const blocks = [
+    headingBlock("Paket honeymoon Lombok Juni 2026 untuk pasangan yang ingin liburan lebih romantis", "h2", "june-honeymoon-overview"),
+    normalBlock(
+      "Paket honeymoon Lombok Juni 2026 cocok untuk pasangan yang ingin menyiapkan perjalanan berdua dengan ritme yang nyaman, tidak terlalu padat, dan terasa lebih personal. Banyak pasangan mencari paket bulan berjalan karena ingin memastikan tanggal, area menginap, dan suasana perjalanan sudah pas sebelum keberangkatan.",
+      "june-honeymoon-overview-body-1",
+    ),
+    normalBlock(
+      "Di Lombok, honeymoon yang baik bukan hanya soal destinasi cantik, tetapi soal alur perjalanan yang tenang, momen berdua yang cukup, dan perpindahan yang tidak melelahkan. Karena itu, itinerary honeymoon sebaiknya tetap fokus pada kenyamanan pasangan.",
+      "june-honeymoon-overview-body-2",
+    ),
+    headingBlock("Yang paling sering dicari pasangan untuk Juni 2026", "h2", "june-honeymoon-intent"),
+    bulletBlock("Area menginap yang mendukung suasana romantis dan tidak terlalu ramai.", "june-honeymoon-intent-1"),
+    bulletBlock("Itinerary santai dengan sunset, pantai, dan quality time berdua.", "june-honeymoon-intent-2"),
+    bulletBlock("Private trip yang lebih fleksibel dibanding format wisata umum.", "june-honeymoon-intent-3"),
+    bulletBlock("Transport yang rapi agar perjalanan terasa ringan sejak hari pertama.", "june-honeymoon-intent-4"),
+    headingBlock("Kenapa bulan Juni menarik untuk honeymoon di Lombok", "h2", "june-honeymoon-why"),
+    normalBlock(
+      "Pada bulan Juni, banyak pasangan mulai aktif mencari paket yang relevan dengan waktu liburan mereka. Keyword musiman seperti ini cenderung datang dari calon tamu yang sudah dekat ke keputusan booking, sehingga kebutuhan mereka biasanya lebih jelas: durasi, hotel, area trip, dan suasana perjalanan yang ingin didapat.",
+      "june-honeymoon-why-body",
+    ),
+    linkedNormalBlock(
+      [
+        { text: "Untuk melihat layanan utamanya, kunjungi " },
+        { text: "paket honeymoon Lombok", href: "/paket-honeymoon-lombok" },
+        { text: ". Jika ingin membandingkan opsi itinerary umum, cek juga " },
+        { text: "paket wisata Lombok", href: "/paket-wisata-lombok" },
+        { text: " dan ide area romantis seperti " },
+        { text: "Gili Trawangan", href: "/wisata/gili-trawangan" },
+        { text: " yang sering dipertimbangkan pasangan." },
+      ],
+      "june-honeymoon-links",
+    ),
+  ];
+
+  if (detailImageId) {
+    blocks.push(imageBlock(detailImageId, "Visual paket honeymoon Lombok Juni 2026", "june-honeymoon-image"));
+  }
+
+  blocks.push(
+    headingBlock("Apa yang perlu dipastikan sebelum booking", "h2", "june-honeymoon-checklist"),
+    bulletBlock("Tanggal honeymoon dan durasi perjalanan yang diinginkan.", "june-honeymoon-checklist-1"),
+    bulletBlock("Preferensi area menginap, apakah lebih suka suasana resort, pantai, atau pulau.", "june-honeymoon-checklist-2"),
+    bulletBlock("Gaya trip, apakah ingin lebih santai, lebih private, atau tetap ada beberapa highlight destinasi.", "june-honeymoon-checklist-3"),
+    quoteBlock(
+      "Paket honeymoon Lombok Juni 2026 paling efektif untuk pasangan yang ingin liburan romantis dengan susunan perjalanan yang hangat, tidak melelahkan, dan mudah dikonsultasikan sejak awal.",
+      "june-honeymoon-quote",
+    ),
+  );
+
+  return blocks;
+}
+
+function buildPaketWisataLombokJuni2026Content(detailImageId) {
+  const blocks = [
+    headingBlock("Paket wisata Lombok Juni 2026 untuk keluarga, pasangan, dan rombongan", "h2", "june-package-overview"),
+    normalBlock(
+      "Paket wisata Lombok Juni 2026 banyak dicari oleh calon tamu yang sudah punya horizon waktu liburan dan ingin perjalanan lebih praktis sejak awal. Pada fase ini, kebutuhan mereka biasanya sudah cukup jelas: berapa lama durasi trip, siapa saja yang ikut, area mana yang ingin diprioritaskan, dan apakah perjalanan perlu dibuat santai atau lebih lengkap.",
+      "june-package-overview-body-1",
+    ),
+    normalBlock(
+      "Konten musiman seperti ini penting karena intent pencari biasanya lebih dekat ke aksi. Alih-alih hanya mencari inspirasi, calon tamu mulai membandingkan opsi paket yang benar-benar siap dipesan dan mudah disesuaikan dengan kebutuhan rombongan mereka.",
+      "june-package-overview-body-2",
+    ),
+    headingBlock("Siapa yang paling cocok dengan paket bulan Juni", "h2", "june-package-fit"),
+    bulletBlock("Keluarga yang ingin perjalanan lebih terarah tanpa menyusun semuanya sendiri.", "june-package-fit-1"),
+    bulletBlock("Pasangan yang ingin liburan nyaman namun tidak harus dalam format honeymoon.", "june-package-fit-2"),
+    bulletBlock("Rombongan kecil yang membutuhkan susunan perjalanan dan transport yang rapi.", "june-package-fit-3"),
+    headingBlock("Apa yang biasanya ingin dipastikan sebelum booking", "h2", "june-package-check"),
+    bulletBlock("Tanggal trip, jumlah peserta, dan jam kedatangan.", "june-package-check-1"),
+    bulletBlock("Durasi yang paling realistis untuk menikmati Lombok tanpa terlalu padat.", "june-package-check-2"),
+    bulletBlock("Kebutuhan kendaraan dan area wisata yang ingin diprioritaskan.", "june-package-check-3"),
+    bulletBlock("Apakah paket lebih cocok dibuat umum, family trip, atau diarahkan ke trip berdua.", "june-package-check-4"),
+    linkedNormalBlock(
+      [
+        { text: "Mulai dari halaman utama " },
+        { text: "paket wisata Lombok", href: "/paket-wisata-lombok" },
+        { text: " untuk melihat layanan inti. Jika perjalanan membutuhkan kendaraan yang lebih fleksibel, lihat juga " },
+        { text: "sewa mobil Lombok", href: "/sewa-mobil-lombok" },
+        { text: ". Untuk pasangan yang ingin suasana lebih personal, bandingkan dengan " },
+        { text: "paket honeymoon Lombok", href: "/paket-honeymoon-lombok" },
+        { text: "." },
+      ],
+      "june-package-links",
+    ),
+  ];
+
+  if (detailImageId) {
+    blocks.push(imageBlock(detailImageId, "Visual paket wisata Lombok Juni 2026", "june-package-image"));
+  }
+
+  blocks.push(
+    headingBlock("Kenapa artikel musiman ini penting untuk transaksi", "h2", "june-package-freshness"),
+    normalBlock(
+      "Keyword Juni 2026 membantu halaman blog menjangkau long-tail yang lebih spesifik dan berpotensi lebih realistis untuk dikonversi. Selain menangkap sinyal freshness, artikel seperti ini juga memperkuat internal link ke money page yang menjadi pusat konversi.",
+      "june-package-freshness-body",
+    ),
+    quoteBlock(
+      "Paket wisata Lombok Juni 2026 paling relevan untuk calon tamu yang sudah siap bergerak dari tahap riset ke tahap konsultasi dan booking.",
+      "june-package-quote",
+    ),
+  );
+
+  return blocks;
+}
+
 async function enrichDocWithMedia(doc) {
   if (doc._type === "testimonial") {
     return doc;
@@ -3808,6 +3982,102 @@ const articleDocs = [
     metaDescription:
       "Cari wisata Tanjung Aan Lombok? Simak panduan pantai cantik, short escape santai, dan itinerary terbaik di area selatan.",
     keywords: ["wisata tanjung aan lombok", "tanjung aan lombok", "pantai tanjung aan", "trip tanjung aan"],
+  },
+  {
+    _id: "article-sewa-mobil-lombok-juni-2026",
+    _type: "article",
+    title: "Sewa Mobil Lombok Juni 2026 untuk Liburan, Bandara, dan Trip Harian",
+    slug: { _type: "slug", current: "sewa-mobil-lombok-juni-2026" },
+    category: "Sewa Mobil",
+    excerpt:
+      "Panduan sewa mobil Lombok Juni 2026 untuk wisatawan yang ingin transport lebih praktis sejak jemput bandara sampai trip harian selama liburan.",
+    description:
+      "Cari sewa mobil Lombok Juni 2026? Simak siapa yang cocok memakai layanan ini, kebutuhan yang paling sering dicari, dan cara booking armada yang lebih nyaman untuk perjalanan Anda.",
+    publishedAt: "2026-06-08T08:00:00.000Z",
+    content: buildSewaMobilLombokJuni2026Content(),
+    faqs: [
+      faq("Berapa lama sebaiknya booking sewa mobil Lombok untuk Juni 2026?", "Jika tanggal perjalanan sudah pasti, booking lebih awal lebih aman agar pilihan armada dan jadwal jemput masih lebih fleksibel."),
+      faq("Apakah sewa mobil Lombok Juni 2026 cocok untuk jemput bandara?", "Sangat cocok, terutama untuk tamu yang ingin langsung menuju hotel atau lanjut ke area wisata tanpa repot mencari transport tambahan."),
+      faq("Apakah lebih baik memakai driver?", "Banyak tamu memilih driver karena perjalanan terasa lebih praktis, terutama jika belum familiar dengan rute di Lombok atau ingin liburan lebih santai."),
+      faq("Apakah layanan ini bisa dipakai untuk trip harian?", "Bisa. Sewa mobil sering dipakai untuk city tour, beach hopping, transfer antar area, dan agenda wisata harian selama di Lombok."),
+    ],
+    relatedLinks: ["/sewa-mobil-lombok", "/blog/harga-sewa-mobil-lombok", "/paket-wisata-lombok"],
+    ctaMessage:
+      "Halo, saya ingin sewa mobil Lombok untuk Juni 2026. Tolong bantu rekomendasikan armada, area jemput, dan durasi yang paling cocok.",
+    seoTitle: "Sewa Mobil Lombok Juni 2026 untuk Bandara, Liburan, dan Trip Harian",
+    metaDescription:
+      "Butuh sewa mobil Lombok Juni 2026? Temukan pilihan layanan untuk jemput bandara, liburan keluarga, pasangan, dan trip harian dengan driver yang lebih praktis.",
+    keywords: [
+      "sewa mobil lombok juni",
+      "sewa mobil lombok juni 2026",
+      "rental mobil lombok juni",
+      "sewa mobil bandara lombok",
+      "sewa mobil lombok dengan driver",
+    ],
+  },
+  {
+    _id: "article-paket-honeymoon-lombok-juni-2026",
+    _type: "article",
+    title: "Paket Honeymoon Lombok Juni 2026 untuk Pasangan yang Ingin Liburan Romantis",
+    slug: { _type: "slug", current: "paket-honeymoon-lombok-juni-2026" },
+    category: "Honeymoon",
+    excerpt:
+      "Panduan paket honeymoon Lombok Juni 2026 untuk pasangan yang ingin liburan romantis dengan itinerary nyaman, suasana lebih intim, dan ritme perjalanan yang tidak melelahkan.",
+    description:
+      "Paket honeymoon Lombok Juni 2026 cocok untuk pasangan yang ingin menikmati liburan romantis dengan alur perjalanan yang santai, nyaman, dan mudah dikonsultasikan sejak awal.",
+    publishedAt: "2026-06-08T08:10:00.000Z",
+    content: buildPaketHoneymoonLombokJuni2026Content(),
+    faqs: [
+      faq("Apakah Juni 2026 waktu yang bagus untuk honeymoon di Lombok?", "Juni cocok untuk pasangan yang ingin trip romantis dengan perencanaan lebih matang, suasana liburan yang nyaman, dan itinerary yang bisa disusun tanpa terlalu terburu-buru."),
+      faq("Honeymoon di Lombok lebih cocok berapa hari?", "Banyak pasangan memilih durasi singkat sampai menengah, tergantung gaya perjalanan, area menginap, dan seberapa santai ritme liburan yang diinginkan."),
+      faq("Apakah paket honeymoon bisa dibuat private?", "Bisa. Justru banyak pasangan lebih nyaman dengan perjalanan private agar suasana lebih intim dan alur trip lebih fleksibel."),
+      faq("Apakah paket honeymoon harus selalu penuh aktivitas?", "Tidak. Honeymoon yang baik justru sering terasa lebih berkesan ketika itinerary memberi ruang untuk santai dan menikmati waktu berdua."),
+    ],
+    relatedLinks: ["/paket-honeymoon-lombok", "/paket-wisata-lombok", "/wisata/gili-trawangan"],
+    ctaMessage:
+      "Halo, saya ingin paket honeymoon Lombok untuk Juni 2026. Tolong bantu rekomendasikan durasi, area menginap, dan itinerary yang romantis untuk berdua.",
+    seoTitle: "Paket Honeymoon Lombok Juni 2026 untuk Liburan Romantis Berdua",
+    metaDescription:
+      "Cari paket honeymoon Lombok Juni 2026? Temukan pilihan trip romantis untuk pasangan yang ingin suasana lebih intim, itinerary nyaman, dan momen liburan yang berkesan.",
+    keywords: [
+      "paket honeymoon lombok juni 2026",
+      "honeymoon lombok juni",
+      "paket honeymoon lombok",
+      "liburan romantis lombok",
+      "trip pasangan lombok",
+    ],
+  },
+  {
+    _id: "article-paket-wisata-lombok-juni-2026",
+    _type: "article",
+    title: "Paket Wisata Lombok Juni 2026 untuk Liburan Keluarga, Pasangan, dan Rombongan",
+    slug: { _type: "slug", current: "paket-wisata-lombok-juni-2026" },
+    category: "Paket Wisata",
+    excerpt:
+      "Panduan paket wisata Lombok Juni 2026 untuk wisatawan yang ingin liburan lebih praktis dengan itinerary yang bisa disesuaikan untuk keluarga, pasangan, dan rombongan.",
+    description:
+      "Paket wisata Lombok Juni 2026 cocok untuk tamu yang ingin perjalanan lebih efisien sejak awal, mulai dari susunan rute, transport, sampai penyesuaian kebutuhan rombongan.",
+    publishedAt: "2026-06-08T08:20:00.000Z",
+    content: buildPaketWisataLombokJuni2026Content(),
+    faqs: [
+      faq("Apakah paket wisata Lombok Juni 2026 cocok untuk keluarga?", "Sangat cocok, terutama jika itinerary disusun dengan ritme yang santai dan transport disesuaikan dengan kebutuhan peserta."),
+      faq("Apakah paket wisata bisa disesuaikan untuk pasangan dan rombongan?", "Bisa. Paket wisata Lombok umumnya fleksibel untuk diarahkan menjadi trip keluarga, private trip pasangan, maupun perjalanan rombongan kecil."),
+      faq("Kapan sebaiknya mulai booking untuk Juni 2026?", "Jika tanggal perjalanan sudah ada, konsultasi lebih awal lebih baik agar susunan itinerary, transport, dan kebutuhan trip bisa disiapkan lebih rapi."),
+      faq("Apa bedanya paket wisata biasa dengan paket honeymoon?", "Paket wisata biasa lebih umum untuk berbagai tipe tamu, sedangkan paket honeymoon biasanya disusun lebih intim, lebih santai, dan lebih fokus pada pengalaman berdua."),
+    ],
+    relatedLinks: ["/paket-wisata-lombok", "/sewa-mobil-lombok", "/paket-honeymoon-lombok"],
+    ctaMessage:
+      "Halo, saya ingin paket wisata Lombok untuk Juni 2026. Tolong bantu rekomendasikan durasi, itinerary, dan opsi trip yang paling cocok untuk kami.",
+    seoTitle: "Paket Wisata Lombok Juni 2026 untuk Keluarga, Couple, dan Rombongan",
+    metaDescription:
+      "Cari paket wisata Lombok Juni 2026? Temukan pilihan trip untuk keluarga, pasangan, dan rombongan dengan itinerary yang lebih praktis dan mudah disesuaikan.",
+    keywords: [
+      "paket wisata lombok juni 2026",
+      "paket wisata lombok juni",
+      "tour lombok juni 2026",
+      "trip lombok juni",
+      "paket liburan lombok",
+    ],
   },
 ];
 

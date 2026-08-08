@@ -15,7 +15,7 @@ export const siteConfig = {
     { label: "Honeymoon", href: "/paket-honeymoon-lombok" },
     { label: "Sewa Mobil", href: "/sewa-mobil-lombok" },
     { label: "Destinasi", href: "/wisata/gili-trawangan" },
-    { label: "Blog", href: "/blog/tempat-wisata-di-lombok" },
+    { label: "Blog", href: "/blog" },
   ],
 };
 

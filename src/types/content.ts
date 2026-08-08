@@ -3,6 +3,14 @@ export type SeoFields = {
   description: string;
   path: string;
   keywords?: string[];
+  image?: string;
+  type?: "website" | "article";
+  publishedTime?: string;
+  modifiedTime?: string;
+  robots?: {
+    index?: boolean;
+    follow?: boolean;
+  };
 };
 
 export type PortableTextNode = {
@@ -85,6 +93,7 @@ export type ArticleItem = {
   gallery?: GalleryImage[];
   faqs?: FaqItem[];
   publishedAt?: string;
+  updatedAt?: string;
   relatedLinks?: string[];
   ctaMessage?: string;
   seoTitle?: string;

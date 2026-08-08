@@ -9,6 +9,15 @@ export function absoluteUrl(path: string) {
 
 export function buildMetadata(input: SeoFields): Metadata {
   const url = absoluteUrl(input.path);
+  const type = input.type || "website";
+  const images = input.image
+    ? [
+        {
+          url: input.image,
+          alt: input.title,
+        },
+      ]
+    : undefined;
 
   return {
     title: input.title,
@@ -18,18 +27,23 @@ export function buildMetadata(input: SeoFields): Metadata {
     alternates: {
       canonical: url,
     },
+    robots: input.robots,
     openGraph: {
-      type: "website",
+      type,
       url,
       title: input.title,
       description: input.description,
       siteName: siteConfig.name,
       locale: siteConfig.locale,
+      images,
+      ...(input.publishedTime ? { publishedTime: input.publishedTime } : {}),
+      ...(input.modifiedTime ? { modifiedTime: input.modifiedTime } : {}),
     },
     twitter: {
       card: "summary_large_image",
       title: input.title,
       description: input.description,
+      images: input.image ? [input.image] : undefined,
     },
   };
 }

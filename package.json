@@ -9,7 +9,10 @@
     "lint": "eslint .",
     "test": "vitest",
     "check": "npm run lint && npm run test -- --run && npm run build",
-    "seed:sanity": "node ./scripts/seed-sanity.mjs"
+    "seed:sanity": "node ./scripts/seed-sanity.mjs",
+    "export:sanity:articles": "node ./scripts/export-sanity-articles.mjs",
+    "import:custom-cms:articles": "node ./scripts/import-custom-cms-articles.mjs",
+    "import:june-2026:articles": "node ./scripts/import-june-2026-articles.mjs"
   },
   "dependencies": {
     "@portabletext/react": "^6.2.0",
